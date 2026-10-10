@@ -82,7 +82,7 @@ Créer une carte interactive à partir du [plan-mariage.png](../assets/plan-mari
 
 ### Interprétation de réalisation
 
-Utiliser le plan fourni comme fond ou référence fidèle. Des zones ou repères interactifs permettront de consulter les informations relatives aux espaces sélectionnés. La forme de ces informations — fiche, panneau ou bulle — reste à choisir lors de la conception.
+Recréer le plan fourni en éléments web vectoriels (SVG), en conservant la disposition et en se rapprochant du graphisme illustré original. Les arbres, chemins, bâtiments, tente, véhicules et étang doivent être de vrais éléments web, et non une image de fond avec des repères. Les espaces représentés peuvent être sélectionnés ; leurs informations détaillées seront complétées ensuite. Un zoom et une liste de lieux facilitent l’utilisation sur téléphone.
 
 Avant l’implémentation, inspecter le fichier pour déterminer son format, sa lisibilité et la manière de l’intégrer. Préserver la position des espaces représentés ; ne pas inventer de coordonnées ou de zones à partir du seul contexte du mariage.
 

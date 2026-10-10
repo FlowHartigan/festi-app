@@ -39,7 +39,11 @@ La date du mariage est une date civile ; l'affichage utilise `Europe/Paris`. Le 
 
 ## Plan et identité
 
-Le logo PNG est un rendu du PDF fourni ; le plan PNG reprend le fichier source, renommé avec son extension réelle. Les originaux sont conservés dans `assets`. Les versions servies par l'application sont dans `public/assets`. Les points interactifs utiliseront des coordonnées en pourcentage de l'image (0 à 100) et une liste alternative accessible. Le mécanisme est présent, mais les emplacements cliquables attendent la validation des zones et de leurs descriptions.
+Le logo PNG est un rendu du PDF fourni. Les originaux du logo et du plan sont conservés dans `assets`.
+
+Le plan affiché est une illustration SVG React dans `src/components/FestivalMapArtwork.tsx`, reconstruite d’après le plan source dans un repère de 1536 × 1024. Arbres, reliefs, chemins, bâtiments, tente, mobilier, véhicules et étang sont des formes vectorielles ; aucun fond bitmap n’est utilisé. Les motifs et symboles SVG mutualisent les éléments répétés. Les onze espaces identifiés sur le document sont des groupes sélectionnables au toucher, à la souris et au clavier (Entrée/Espace), avec une liste HTML alternative. Le zoom de 100 à 300 % utilise un conteneur défilant sans agrandir la page.
+
+Les identifiants de `mapSpaces` relient les zones aux éventuelles descriptions de `places` fournies par l’API. Les descriptions absentes restent explicitement à compléter. Les points supplémentaires configurés dans l’API conservent leurs coordonnées en pourcentage et leur bouton superposé. La reconstruction graphique ne modifie pas la base de données.
 
 ## Exploitation
 

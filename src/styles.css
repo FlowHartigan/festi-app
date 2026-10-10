@@ -57,9 +57,20 @@ p { line-height: 1.65; margin: 0; }
 @media (max-width: 360px) { .lineup-page { --hour-column: 64px; } .schedule-card { padding-inline: 12px; gap: 8px; } .schedule-details { padding-inline: 12px; } }
 .quiet-note { margin-top: 24px; font-size: 14px; color: var(--muted); }
 .information-list section { padding-block: 24px; border-top: 1px solid var(--line); }
-.map-scroll { overflow-x: auto; border-radius: 20px; border: 1px solid var(--line); }
-.map-canvas { position: relative; width: max(100%, 720px); }
-.map-canvas img { display: block; width: 100%; height: auto; }
+.map-scroll { overflow: auto; max-height: 70svh; border-radius: 20px; border: 1px solid #d9c6a1; background: #ead8b6; }
+.map-canvas { position: relative; min-width: 100%; }
+.festival-artwork { display: block; width: 100%; height: auto; }
+.map-zone { cursor: pointer; outline: none; }
+.map-zone-hit { fill: transparent; stroke: transparent; stroke-width: 4; }
+.map-zone:focus-visible .map-zone-hit, .map-zone.is-selected .map-zone-hit { fill: #fff1c424; stroke: #684e2b; stroke-dasharray: 8 5; }
+.map-zone.is-selected .illustrated-sign { filter: drop-shadow(0 0 5px #fff0ba); }
+@media (hover: hover) { .map-zone:hover .map-zone-hit { fill: #fff1c42b; stroke: #79582e; } }
+.map-toolbar { display: flex; align-items: center; justify-content: flex-end; gap: 6px; margin-bottom: 12px; }
+.map-toolbar button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 14px; color: var(--olive); background: #f7f7f2; }
+.map-toolbar button:disabled { opacity: .35; cursor: default; }
+.map-toolbar output { min-width: 58px; text-align: center; font-size: 13px; font-variant-numeric: tabular-nums; color: var(--muted); }
+.place-list { padding-left: 0; }
+.place-list button[aria-pressed="true"] { background: var(--olive); color: white; }
 .map-marker { position: absolute; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; border: 2px solid white; background: var(--olive); color: white; }
 .place-list { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; }
 .place-list button, .place-detail button, .action { padding: 12px 18px; background: #e9edde; border: 0; border-radius: 14px; color: #465037; text-decoration: none; display: inline-block; }
