@@ -3,6 +3,7 @@ import { mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { festivalSchema } from '../shared/festival.js';
 import { initialFestival } from './seed.js';
+import { programV2 } from './program-v2.js';
 
 export function openDatabase(path = process.env.DATABASE_PATH ?? '.data/festi.sqlite') {
   if (path !== ':memory:') mkdirSync(dirname(resolve(path)), { recursive: true });
@@ -21,6 +22,18 @@ export function openDatabase(path = process.env.DATABASE_PATH ?? '.data/festi.sq
       db.prepare('INSERT INTO festival_content (id, content) VALUES (1, ?)')
         .run(JSON.stringify(festivalSchema.parse(initialFestival)));
       db.prepare('INSERT INTO migrations (version) VALUES (?)').run(1);
+      db.exec('COMMIT');
+    } catch (error) { db.exec('ROLLBACK'); db.close(); throw error; }
+  }
+  if (!db.prepare('SELECT version FROM migrations WHERE version = 2').get()) {
+    db.exec('BEGIN IMMEDIATE');
+    try {
+      const festival = readFestival(db);
+      const existingIds = new Set(festival.program.map(moment => moment.id));
+      festival.program.push(...programV2.filter(moment => !existingIds.has(moment.id)));
+      db.prepare('UPDATE festival_content SET content = ?, updated_at = CURRENT_TIMESTAMP WHERE id = 1')
+        .run(JSON.stringify(festivalSchema.parse(festival)));
+      db.prepare('INSERT INTO migrations (version) VALUES (?)').run(2);
       db.exec('COMMIT');
     } catch (error) { db.exec('ROLLBACK'); db.close(); throw error; }
   }

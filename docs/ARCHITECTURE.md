@@ -17,7 +17,8 @@ Le navigateur demande `GET /api/festival`. Le serveur lit SQLite et valide le co
 | `src/lib` | Chargement des données |
 | `shared` | Contrat de données partagé |
 | `server` | API, migration initiale et données de départ |
-| `public/assets` | Logo et plan fournis, adaptés au navigateur |
+| `assets` | Fichiers sources fournis : logo, plan et futurs visuels |
+| `public/assets` | Versions des visuels utilisées par le navigateur |
 | `deploy` | Modèles Nginx et systemd pour Ubuntu |
 | `tests` | Vérifications d'intégration API et persistance |
 | `skills` | Instructions et contexte du projet |
@@ -30,13 +31,15 @@ Pour ce premier périmètre de consultation, `festival_content` contient un docu
 
 `server/seed.ts` fournit uniquement le contenu initial. Modifier ce fichier ne met pas à jour une base déjà créée. L'édition des données persistées devra passer par un outil explicite ou une future interface d'administration, avec validation et sauvegarde. Il n'existe actuellement aucune route publique d'écriture.
 
+La migration 2 ajoute les activités de 17 h à 19 h et le DJ set de 19 h à 20 h, confirmés par les mariés. Elle conserve le contenu existant et évite les doublons par identifiant. Les étapes acceptent une heure de fin facultative et se déplient dans le planning pour afficher description et lieu.
+
 Des tables dédiées deviendront pertinentes avec des inscriptions, des droits ou une édition concurrente. PostgreSQL sera à considérer si plusieurs serveurs doivent écrire dans la même base. Ces fonctionnalités ne font pas partie du socle actuel.
 
 La date du mariage est une date civile ; l'affichage utilise `Europe/Paris`. Le programme public contient seulement les moments confirmés pour les invités. La cérémonie civile en petit comité n'est pas ajoutée au programme public.
 
 ## Plan et identité
 
-Le logo PNG est un rendu du PDF fourni ; le plan PNG reprend le fichier `plan-mariage`. Les originaux sont conservés. Les points interactifs utiliseront des coordonnées en pourcentage de l'image (0 à 100) et une liste alternative accessible. Le mécanisme est présent, mais les emplacements cliquables attendent la validation des zones et de leurs descriptions.
+Le logo PNG est un rendu du PDF fourni ; le plan PNG reprend le fichier source, renommé avec son extension réelle. Les originaux sont conservés dans `assets`. Les versions servies par l'application sont dans `public/assets`. Les points interactifs utiliseront des coordonnées en pourcentage de l'image (0 à 100) et une liste alternative accessible. Le mécanisme est présent, mais les emplacements cliquables attendent la validation des zones et de leurs descriptions.
 
 ## Exploitation
 

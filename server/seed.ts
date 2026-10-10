@@ -1,4 +1,5 @@
 import type { Festival } from '../shared/festival.js';
+import { programV2 } from './program-v2.js';
 
 export const initialFestival: Festival = {
   name: 'Once Upon a Fest', couple: 'Florian & Charline', date: '2027-09-04',
@@ -6,7 +7,7 @@ export const initialFestival: Festival = {
   logo: '/assets/logo-mariage.png', mapImage: '/assets/plan-mariage.png',
   program: [{ id: 'ouverture', time: '16:30', title: 'Début des festivités',
     description: 'On se retrouve à La Source du Buron pour célébrer ensemble.',
-    location: 'La Source du Buron' }],
+    location: 'La Source du Buron' }, ...programV2],
   places: [],
   information: [
     { id: 'lieu', title: 'Le lieu', body: 'La Source du Buron, à Saint-Poncy dans le Cantal. Les festivités commencent le samedi 4 septembre 2027 à 16 h 30.' },

@@ -42,7 +42,7 @@ Principes de réalisation du dock :
 - Le logo du mariage.
 - La date du festival.
 
-Le contexte mariage donne le nom **Once Upon a Fest** et la date du **samedi 4 septembre 2027**. Utiliser le fichier [logo-mariage.pdf](../logo-mariage.pdf) comme source du logo.
+Le contexte mariage donne le nom **Once Upon a Fest** et la date du **samedi 4 septembre 2027**. Utiliser le fichier [logo-mariage.pdf](../assets/logo-mariage.pdf) comme source du logo.
 
 La priorité de cet écran est de faire reconnaître immédiatement l’événement et sa date. Tout contenu supplémentaire reste à décider ; un compte à rebours ou des raccourcis ne font pas partie de la demande initiale.
 
@@ -54,11 +54,19 @@ Présenter les différents moments du mariage comme le line-up d’un festival.
 
 ### Interprétation de réalisation
 
-Organiser les moments dans un ordre chronologique lisible sur téléphone. Chaque entrée doit pouvoir présenter un horaire, un titre et, lorsque ces informations existent, un lieu ou une courte description.
+Organiser les moments dans un ordre chronologique lisible sur téléphone, avec les heures dans une colonne à gauche et les étapes à droite, comme un planning de festival. Chaque étape est cliquable : elle déplie sa description et son lieu sous le titre, puis se replie au second clic. Le toucher et le clavier doivent fonctionner. Plusieurs étapes peuvent rester ouvertes pour consulter le programme.
+
+La référence visuelle fournie inspire la structure du planning uniquement. Conserver la charte initiale : fond blanc, doré du logo, accents olive et typographie système. Ne pas reprendre les couleurs violettes de la référence. Les heures viennent du programme fourni ; ne pas ajouter de créneaux fictifs pour remplir la liste.
 
 Le traitement visuel doit évoquer un programme de festival. Il n’impose pas que chaque moment soit un concert ou un artiste.
 
 ### Informations à compléter
+
+Programme public confirmé :
+
+- 16 h 30 : début des festivités à La Source du Buron.
+- 17 h à 19 h : activités, avec des jeux en bois dans l’espace activités.
+- 19 h à 20 h : DJ set années 2000 sur la scène.
 
 - La liste des moments à afficher aux invités.
 - Les horaires, lieux et descriptions de chaque moment.
@@ -70,7 +78,7 @@ Respecter les repères confirmés du skill mariage. La cérémonie civile à Iss
 
 ### Fonction demandée
 
-Créer une carte interactive à partir du [plan-mariage](../plan-mariage) présent dans le projet. L’utilisateur doit pouvoir cliquer ou toucher des éléments du plan.
+Créer une carte interactive à partir du [plan-mariage.png](../assets/plan-mariage.png) présent dans le projet. L’utilisateur doit pouvoir cliquer ou toucher des éléments du plan.
 
 ### Interprétation de réalisation
 

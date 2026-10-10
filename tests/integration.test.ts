@@ -14,11 +14,20 @@ test('Les migrations préservent le contenu modifié après un redémarrage', ()
   let db = openDatabase(path);
   try {
     const content = { ...readFestival(db), name: 'Festival mis à jour' };
+    // Reconstitue une base v1 personnalisée pour vérifier la mise à niveau réelle.
+    content.program = content.program.filter(moment => moment.id === 'ouverture');
     db.prepare('UPDATE festival_content SET content = ? WHERE id = 1').run(JSON.stringify(content));
+    db.exec('DELETE FROM migrations WHERE version = 2');
     db.close();
     db = openDatabase(path);
     assert.equal(readFestival(db).name, 'Festival mis à jour');
-    assert.equal(db.prepare('SELECT count(*) AS total FROM migrations').get()?.total, 1);
+    assert.deepEqual(readFestival(db).program.map(({ time, endTime }) => [time, endTime]), [
+      ['16:30', undefined], ['17:00', '19:00'], ['19:00', '20:00'],
+    ]);
+    db.close();
+    db = openDatabase(path);
+    assert.equal(readFestival(db).program.length, 3);
+    assert.equal(db.prepare('SELECT count(*) AS total FROM migrations').get()?.total, 2);
     assert.equal(db.prepare('PRAGMA integrity_check').get()?.integrity_check, 'ok');
   } finally {
     db.close();

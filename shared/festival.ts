@@ -10,6 +10,7 @@ export const festivalSchema = z.object({
   mapImage: z.string().startsWith('/assets/'),
   program: z.array(z.object({
     id: z.string(), time: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/),
+    endTime: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/).optional(),
     title: z.string(), description: z.string(), location: z.string(),
   })),
   places: z.array(z.object({
