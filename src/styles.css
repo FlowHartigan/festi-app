@@ -1,0 +1,46 @@
+:root { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #302d24; background: #fff; font-synthesis: none; --gold: #ae9257; --olive: #566044; --muted: #6f7066; --line: #e7e8e1; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; cursor: pointer; }
+a { color: inherit; }
+button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--olive); outline-offset: 5px; }
+.app-shell { max-width: 800px; margin-inline: auto; padding: env(safe-area-inset-top) 24px calc(120px + env(safe-area-inset-bottom)); }
+.app-header { display: flex; justify-content: space-between; gap: 16px; padding-block: 24px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--line); }
+#main:focus { outline: none; }
+h1 { font-size: clamp(30px, 6vw, 40px); letter-spacing: -1.3px; line-height: 1.15; font-weight: 650; margin: 0 0 16px; }
+h2 { font-size: 19px; line-height: 1.3; font-weight: 600; margin: 0 0 8px; }
+p { line-height: 1.65; margin: 0; }
+.page { padding-block: 36px; }
+.intro { color: var(--muted); max-width: 44ch; margin-bottom: 32px; }
+.home-page { display: flex; align-items: center; flex-direction: column; padding-top: 28px; text-align: center; }
+.festival-logo { display: block; width: min(100%, 340px); height: auto; }
+.date-ticket { margin-top: 18px; padding: 18px 28px; border: 1px solid #d9ccb0; border-radius: 20px; width: min(100%, 360px); }
+.date-ticket p { color: var(--muted); font-size: 13px; }
+.date-ticket time { display: block; margin-top: 6px; font-weight: 600; font-size: 17px; }
+.home-venue { margin-top: 18px; font-size: 13px; color: var(--muted); }
+.dock { position: fixed; bottom: max(16px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); display: flex; width: min(calc(100% - 32px), 440px); padding: 7px; border-radius: 27px; background: rgba(250,250,247,.95); border: 1px solid #dedfd6; box-shadow: 0 8px 30px #302d2414; backdrop-filter: blur(18px); z-index: 10; }
+.dock a { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-height: 60px; border-radius: 20px; text-decoration: none; color: var(--muted); font-size: 11px; font-weight: 500; }
+.dock a.active { background: #e9edde; color: #465037; }
+.timeline { list-style: none; padding: 0; margin: 0; }
+.timeline li { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding-block: 24px; border-block-start: 1px solid var(--line); }
+.timeline time { color: var(--olive); font-weight: 650; font-size: 15px; }
+.timeline p, .information-list p { color: var(--muted); font-size: 15px; }
+.timeline small { display: block; margin-top: 12px; color: var(--olive); }
+.quiet-note { margin-top: 24px; font-size: 14px; color: var(--muted); }
+.information-list section { padding-block: 24px; border-top: 1px solid var(--line); }
+.map-scroll { overflow-x: auto; border-radius: 20px; border: 1px solid var(--line); }
+.map-canvas { position: relative; width: max(100%, 720px); }
+.map-canvas img { display: block; width: 100%; height: auto; }
+.map-marker { position: absolute; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; border: 2px solid white; background: var(--olive); color: white; }
+.place-list { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; }
+.place-list button, .place-detail button, .action { padding: 12px 18px; background: #e9edde; border: 0; border-radius: 14px; color: #465037; text-decoration: none; display: inline-block; }
+.place-detail { margin-top: 24px; padding: 24px; background: #f4f5ef; border-radius: 20px; }
+.place-detail button { margin-top: 16px; }
+.error-page { max-width: 600px; margin: 48px auto; padding-inline: 24px; }
+.error-page .action { margin-top: 24px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; top: -100px; left: 16px; padding: 12px; background: white; z-index: 20; }
+.skip-link:focus { top: 12px; }
+@media (min-width: 700px) { .page { padding-top: 56px; } .app-shell { padding-inline: 48px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
