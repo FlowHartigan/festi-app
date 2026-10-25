@@ -8,6 +8,7 @@ import { Lineup } from './pages/Lineup';
 import { MapPage } from './pages/Map';
 import { Information } from './pages/Information';
 import { ErrorPage } from './pages/Error';
+import { Account } from './pages/Account';
 import './styles.css';
 
 const router = createBrowserRouter([{
@@ -18,6 +19,7 @@ const router = createBrowserRouter([{
     { path: 'line-up', element: <Lineup /> },
     { path: 'plan', element: <MapPage /> },
     { path: 'informations', element: <Information /> },
+    { path: 'compte', element: <Account /> },
     { path: '*', element: <ErrorPage notFound /> },
   ],
 }]);

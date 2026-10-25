@@ -1,6 +1,6 @@
 # Once Upon a Fest — Festi App
 
-Application web React pensée pour mobile : Accueil, Line-up, Plan et Informations, accessibles par un dock inspiré d'iOS. API Node.js et petite base SQLite persistante.
+Application web React pensée pour mobile : Accueil, Line-up, Plan, Informations et Compte, accessibles par un dock inspiré d'iOS. API Node.js et petite base SQLite persistante.
 
 ## Démarrer
 
@@ -33,6 +33,15 @@ La compilation vérifie TypeScript puis produit `dist` (frontend) et `dist-serve
 
 ## Contenu et suite
 
-Les données initiales sont dans `server/seed.ts` ; elles sont insérées seulement lors de la création de la base. Les informations non confirmées restent présentées comme telles. Le plan fourni est affiché ; ses zones cliquables et le reste du programme devront être validés avant ajout. L'administration et les inscriptions restent à définir.
+Les données initiales sont dans `server/seed.ts` ; elles sont insérées seulement lors de la création de la base. Le programme dépliable comprend les trois moments confirmés. Le plan SVG propose onze espaces sélectionnables et un zoom ; leurs descriptions restent à compléter.
+
+L’onglet Compte permet à chaque invité d’entrer son code personnel à quatre chiffres, puis d’enregistrer ou de modifier sa présence et son intention de dormir en van. Les comptes doivent être importés côté serveur. Il n’existe pas d’administration web.
+
+```sh
+npm run guests:import -- resources/private/invites.json
+npm run guests:export
+```
+
+L’export crée `resources/private/reponses.csv`, lisible dans un tableur. Il contient les noms et réponses, sans les codes. Ces fichiers sont confidentiels et exclus de Git. Voir [la gestion des comptes](docs/COMPTES.md) pour le format d’import, les sessions et la configuration de production.
 
 Voir [l'architecture](docs/ARCHITECTURE.md), [le contexte produit](docs/CONTEXTE-PRODUIT.md) et [le déploiement Ubuntu](docs/DEPLOIEMENT.md).

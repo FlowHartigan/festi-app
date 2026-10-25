@@ -36,11 +36,19 @@ Le fil conducteur de toute proposition est : **« Que va vivre l’invité ? »*
 
 Nous ne souhaitons **ni repas assis classique, ni plan de table traditionnel, ni vin d’honneur classique**.
 
+## Accueil des enfants
+
+Le mariage est réservé aux adultes : les enfants ne peuvent pas être accueillis pour des raisons d’organisation et de contraintes liées au lieu. Présenter cette décision avec douceur dans la rubrique « Petits bouts », en exprimant les regrets des mariés et en remerciant les invités de leur compréhension. Ne pas inventer de limite d’âge précise, d’exception ou de solution de garde.
+
 ## Repères horaires
 
 - **14 h 30 :** cérémonie civile à Issoire, en comité restreint.
 - **15 h 30 :** départ vers La Source du Buron.
 - **16 h 30 :** début des festivités.
+- **4 h du matin, dans la nuit du samedi au dimanche :** coupure du son.
+- **5 h du matin :** départ du site.
+
+Le festival a lieu le samedi et se prolonge dans la nuit du samedi au dimanche. Aucun programme n’est prévu le dimanche.
 
 Ne pas présenter la cérémonie civile comme ouverte à tous les invités. Les autres horaires et animations restent à construire.
 

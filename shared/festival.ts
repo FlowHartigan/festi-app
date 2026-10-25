@@ -17,7 +17,20 @@ export const festivalSchema = z.object({
     id: z.string(), name: z.string(), description: z.string(),
     x: z.number().min(0).max(100), y: z.number().min(0).max(100),
   })),
-  information: z.array(z.object({ id: z.string(), title: z.string(), body: z.string() })),
+  information: z.array(z.object({
+    id: z.string(), title: z.string(), body: z.string(),
+    location: z.object({
+      name: z.string().min(1), address: z.string().min(1), town: z.string().min(1),
+    }).optional(),
+    schedule: z.array(z.object({
+      time: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/),
+      title: z.string().min(1), nextDay: z.boolean().optional(),
+    })).optional(),
+    lodgings: z.array(z.object({
+      name: z.string().min(1), kind: z.string().min(1), town: z.string().min(1),
+      url: z.string().url().startsWith('https://'),
+    })).optional(),
+  })),
 });
 
 export type Festival = z.infer<typeof festivalSchema>;

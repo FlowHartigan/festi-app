@@ -1,11 +1,11 @@
-:root { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #302d24; background: #fff; font-synthesis: none; --gold: #ae9257; --olive: #566044; --muted: #6f7066; --line: #e7e8e1; }
+:root { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #302d24; background: #fff; font-synthesis: none; --gold: #ae9257; --olive: #566044; --muted: #6f7066; --line: #e7e8e1; --dock-gap: 24px; }
 * { box-sizing: border-box; }
 body { margin: 0; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; cursor: pointer; }
 a { color: inherit; }
 button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--olive); outline-offset: 5px; }
-.app-shell { max-width: 800px; margin-inline: auto; padding: env(safe-area-inset-top) 24px calc(120px + env(safe-area-inset-bottom)); }
+.app-shell { max-width: 800px; margin-inline: auto; padding: env(safe-area-inset-top) 24px calc(104px + var(--dock-gap) + env(safe-area-inset-bottom, 0px)); }
 .app-header { display: flex; justify-content: space-between; gap: 16px; padding-block: 24px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--line); }
 #main:focus { outline: none; }
 h1 { font-size: clamp(30px, 6vw, 40px); letter-spacing: -1.3px; line-height: 1.15; font-weight: 650; margin: 0 0 16px; }
@@ -19,10 +19,8 @@ p { line-height: 1.65; margin: 0; }
 .date-ticket p { color: var(--muted); font-size: 13px; }
 .date-ticket time { display: block; margin-top: 6px; font-weight: 600; font-size: 17px; }
 .home-venue { margin-top: 18px; font-size: 13px; color: var(--muted); }
-/* Safari already reserves space for its toolbar in the browser viewport. */
-.dock { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); display: flex; width: min(calc(100% - 32px), 440px); padding: 7px; border-radius: 27px; background: rgba(250,250,247,.95); border: 1px solid #dedfd6; box-shadow: 0 8px 30px #302d2414; backdrop-filter: blur(18px); z-index: 10; }
-/* Without browser chrome, protect the iPhone home indicator. */
-@media (display-mode: standalone), (display-mode: fullscreen) { .dock { bottom: env(safe-area-inset-bottom, 0px); } }
+/* Leave a 24px gap above the safe area, using the same spacing at the sides. */
+.dock { position: fixed; bottom: calc(var(--dock-gap) + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); display: flex; width: min(calc(100% - 2 * var(--dock-gap)), 440px); padding: 7px; border-radius: 27px; background: rgba(250,250,247,.95); border: 1px solid #dedfd6; box-shadow: 0 8px 30px #302d2414; backdrop-filter: blur(18px); z-index: 10; }
 .dock a { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-height: 60px; border-radius: 20px; text-decoration: none; color: var(--muted); font-size: 11px; font-weight: 500; }
 .dock a.active { background: #e9edde; color: #465037; }
 .information-list p { color: var(--muted); font-size: 15px; }
@@ -56,7 +54,58 @@ p { line-height: 1.65; margin: 0; }
 @media (hover: hover) { .schedule-summary:hover .schedule-title { color: var(--olive); } }
 @media (max-width: 360px) { .lineup-page { --hour-column: 64px; } .schedule-card { padding-inline: 12px; gap: 8px; } .schedule-details { padding-inline: 12px; } }
 .quiet-note { margin-top: 24px; font-size: 14px; color: var(--muted); }
-.information-list section { padding-block: 24px; border-top: 1px solid var(--line); }
+.information-category { border-top: 1px solid var(--line); }
+.information-category:last-child { border-bottom: 1px solid var(--line); }
+.information-summary { cursor: pointer; list-style: none; border-radius: 8px; -webkit-tap-highlight-color: transparent; }
+.information-summary::-webkit-details-marker { display: none; }
+.information-summary::marker { content: ''; }
+.information-summary:focus-visible { outline: 3px solid var(--olive); outline-offset: 4px; }
+.information-summary h2 { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 76px; margin: 0; font-size: 18px; }
+.information-category-label { display: flex; align-items: center; gap: 14px; }
+.information-summary svg { flex-shrink: 0; color: var(--olive); }
+.information-summary .information-category-icon { color: var(--gold); }
+.information-chevron { transition: transform 180ms ease; }
+.information-category[open] .information-chevron { transform: rotate(180deg); }
+.information-content { padding: 0 0 24px; }
+.information-item + .information-item { margin-top: 20px; }
+.information-item h3 { margin: 0 0 8px; font-size: 15px; font-weight: 600; }
+.information-item p { white-space: pre-line; }
+.venue-location address { font-style: normal; font-size: 15px; line-height: 1.7; color: var(--muted); }
+.venue-map-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+.venue-map-links a { display: inline-flex; align-items: center; justify-content: center; gap: 7px; flex: 1 1 auto; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; color: var(--olive); font-size: 13px; font-weight: 600; text-decoration: none; }
+.venue-map-links a:focus-visible { outline: 3px solid var(--olive); outline-offset: 3px; }
+@media (hover: hover) { .venue-map-links a:hover { background: #f7f6f2; } }
+.venue-map { display: block; width: 100%; height: 280px; border: 0; border-radius: 16px; background: #f7f6f2; }
+.information-hours { padding: 0; margin: 0; list-style: none; }
+.information-hours li { display: grid; grid-template-columns: minmax(96px, auto) 1fr; gap: 16px; padding-block: 10px; font-size: 14px; line-height: 1.6; }
+.information-hours li > span:first-child { color: var(--olive); font-weight: 600; font-variant-numeric: tabular-nums; }
+.information-hours + .information-item { margin-top: 20px; }
+.practical-hours { margin: 0; padding: 4px 18px; background: #f7f4ec; border-radius: 16px; }
+.practical-hours > div { display: grid; grid-template-columns: 82px minmax(0, 1fr); align-items: baseline; gap: 14px; padding-block: 15px; }
+.practical-hours > div + div { border-top: 1px solid #ded4bd; }
+.practical-hours dt { color: var(--olive); font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.practical-hours dd { margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; }
+.information-list .practical-hours-note { margin-top: 14px; font-size: 13px; line-height: 1.6; }
+.accommodation-section { padding-inline: 14px; border: 1px solid var(--line); border-radius: 14px; }
+.accommodation-section + .accommodation-section { margin-top: 12px; }
+.accommodation-summary { cursor: pointer; list-style: none; border-radius: 8px; -webkit-tap-highlight-color: transparent; }
+.accommodation-summary::-webkit-details-marker { display: none; }
+.accommodation-summary::marker { content: ''; }
+.accommodation-summary:focus-visible { outline: 3px solid var(--olive); outline-offset: 4px; }
+.accommodation-summary h3 { display: flex; align-items: center; gap: 10px; min-height: 64px; margin: 0; font-size: 16px; font-weight: 600; }
+.accommodation-summary svg { flex-shrink: 0; color: var(--olive); }
+.accommodation-summary h3 > span { flex: 1; }
+.accommodation-chevron { transition: transform 180ms ease; }
+.accommodation-section[open] > .accommodation-summary .accommodation-chevron { transform: rotate(180deg); }
+.accommodation-content { padding-bottom: 16px; }
+.lodging-list { list-style: none; margin: 16px 0 0; padding: 0; }
+.lodging-list li + li { border-top: 1px solid var(--line); }
+.lodging-list a { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 76px; padding-block: 14px; text-decoration: none; border-radius: 6px; }
+.lodging-list a > span:first-child { min-width: 0; }
+.lodging-list strong { display: block; font-size: 15px; font-weight: 600; line-height: 1.5; }
+.lodging-list a > span > span { display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+.lodging-list svg { flex-shrink: 0; color: var(--olive); }
+@media (hover: hover) { .lodging-list a:hover strong { color: var(--olive); text-decoration: underline; text-underline-offset: 3px; } }
 .map-scroll { overflow: auto; max-height: 70svh; border-radius: 20px; border: 1px solid #d9c6a1; background: #ead8b6; }
 .map-canvas { position: relative; min-width: 100%; }
 .festival-artwork { display: block; width: 100%; height: auto; }
@@ -81,5 +130,39 @@ p { line-height: 1.65; margin: 0; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .skip-link { position: fixed; top: -100px; left: 16px; padding: 12px; background: white; z-index: 20; }
 .skip-link:focus { top: 12px; }
+.account-page { max-width: 520px; margin-inline: auto; }
+.account-back { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-bottom: 16px; color: var(--olive); text-decoration: none; font-size: 14px; }
+.account-menu { display: grid; gap: 16px; }
+.account-menu-button { display: flex; align-items: center; gap: 16px; min-height: 104px; padding: 22px 18px; border: 1px solid #d9ccb0; border-radius: 18px; background: #faf9f5; text-decoration: none; }
+.account-menu-button > span { flex: 1; min-width: 0; }
+.account-menu-button strong { display: block; font-size: 18px; margin-bottom: 7px; }
+.account-menu-button span span { display: block; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.account-menu-button > svg { flex-shrink: 0; color: var(--olive); }
+.account-menu-button .account-menu-icon { color: var(--gold); }
+.account-link { box-sizing: border-box; text-align: center; text-decoration: none; }
+@media (hover: hover) { .account-menu-button:hover { border-color: var(--olive); background: #f0f3e9; } }
+.account-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; color: var(--olive); }
+.account-heading h1 { margin: 0; color: #302d24; }
+.account-login { border-top: 1px solid #d9ccb0; padding-top: 28px; }
+.account-key { color: var(--gold); margin-bottom: 16px; }
+.account-login label { display: block; margin-top: 24px; font-weight: 600; }
+.account-hint { color: var(--muted); font-size: 14px; margin: 8px 0 16px; }
+.account-code { display: block; width: 100%; max-width: 240px; min-height: 64px; margin: 16px 0 24px; border: 1px solid #b9bbaa; border-radius: 14px; font: 28px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: .5em; text-align: center; padding: 10px 10px 10px 24px; background: #fff; color: #302d24; }
+.account-page input:focus-visible { outline: 3px solid var(--olive); outline-offset: 4px; }
+.account-primary { display: block; width: 100%; min-height: 52px; padding: 14px 18px; border: 0; border-radius: 16px; color: white; background: var(--olive); font-weight: 600; }
+.account-primary:disabled { opacity: .55; cursor: default; }
+.account-welcome { font-size: 21px; margin-bottom: 12px; overflow-wrap: anywhere; }
+.account-question { padding: 24px 0; margin: 0; border: 0; border-top: 1px solid var(--line); min-width: 0; }
+.account-question legend { padding: 0 10px 0 0; font-size: 18px; font-weight: 600; }
+.account-question legend svg { vertical-align: middle; color: var(--olive); margin-right: 4px; }
+.account-choices { display: grid; gap: 10px; }
+.answer-option { display: flex; align-items: center; gap: 12px; padding: 16px; min-height: 56px; border: 1px solid var(--line); border-radius: 14px; cursor: pointer; line-height: 1.45; }
+.answer-option.selected { border-color: var(--olive); background: #f0f3e9; }
+.answer-option input { flex-shrink: 0; width: 20px; height: 20px; margin: 0; accent-color: var(--olive); }
+.account-absence { margin-bottom: 24px; }
+.account-error { padding: 12px 0; margin-bottom: 12px; color: #9b332b; font-size: 14px; }
+.account-status { display: flex; align-items: flex-start; gap: 8px; min-height: 48px; margin-top: 14px; color: var(--olive); font-size: 14px; line-height: 1.5; }
+.account-status svg { flex-shrink: 0; }
+.account-logout { min-height: 48px; padding: 12px 0; margin-top: 24px; border: 0; background: transparent; color: var(--olive); text-decoration: underline; text-underline-offset: 4px; }
 @media (min-width: 700px) { .page { padding-top: 56px; } .app-shell { padding-inline: 48px; } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } .schedule-chevron { transition: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } .schedule-chevron, .information-chevron, .accommodation-chevron { transition: none; } }
