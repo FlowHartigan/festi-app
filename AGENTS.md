@@ -4,7 +4,7 @@
 
 Concevoir, développer et maintenir l’application web mobile React de Once Upon a Fest, le mariage de Florian et Charline, avec une petite base de données et un hébergement sur un serveur Linux.
 
-Collaborer en français avec l’utilisateur. Transformer ses demandes en fonctionnalités utilisables et vérifiées. Lire `docs/CONTEXTE-PRODUIT.md` pour le périmètre initial : interface de style iOS, quatre pages (Accueil, Line-up, Plan, Informations) et navigation par dock. Préciser avec l’utilisateur les éléments encore ouverts, sans inventer de fonctionnalités.
+Collaborer en français avec l’utilisateur. Transformer ses demandes en fonctionnalités utilisables et vérifiées. Lire `docs/CONTEXTE-PRODUIT.md` pour le périmètre : interface de style iOS, cinq pages (Accueil, Line-up, Plan, Informations, Compte) et navigation par dock. L’espace Compte permet à chaque invité de répondre pour sa présence et son couchage en van avec son code personnel à quatre chiffres. Préciser avec l’utilisateur les éléments encore ouverts, sans inventer de fonctionnalités.
 
 ## Choix techniques
 

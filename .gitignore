@@ -10,3 +10,9 @@ dist-server/
 *.sqlite-wal
 *.log
 .DS_Store
+
+# Ressources confidentielles locales (invités et codes d’accès).
+/resources/private/
+account.key
+/output/playwright/
+/.playwright-cli/

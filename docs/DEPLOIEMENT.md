@@ -1,6 +1,26 @@
 # Déploiement Ubuntu
 
-Les fichiers de `deploy` sont des modèles à adapter au domaine et au serveur. Aucun serveur n'a été configuré à ce stade.
+## Serveur existant — vérifié le 17 octobre 2026
+
+- Hôte SSH : `vps-328a8329.vps.ovh.ca` (IPv4 constatée : `15.235.100.20`). Utiliser le nom d’hôte.
+- Utilisateur : `ubuntu` ; clé locale à sélectionner explicitement : `C:\Users\flori\.ssh\festi-app-vps`.
+- Site : `https://dms-app.fr/` ; service `festi-app` constaté actif.
+- Version active depuis le 17 octobre 2026 : `/var/www/festi-app/releases/20261017-accounts-info`, via le lien `/var/www/festi-app/current`.
+- Maestro partage ce serveur sous `/maestro/`. Préserver ses fichiers, ses conteneurs et ses routes Nginx ; ne pas remplacer la configuration Nginx complète par le modèle local.
+- L’ancienne cible `187.77.142.73` ne correspond pas à l’adresse actuelle du serveur documenté et ne doit pas servir au déploiement de cette application.
+
+La procédure d’installation ci-dessous reste un modèle pour une nouvelle installation. Pour le serveur existant, inspecter sa configuration effective avant une mise à jour.
+
+### Livraison du 17 octobre 2026
+
+**Correction ultérieure des comptes :** la liste finale de 164 invités remplace l’import initial de 190 décrit ci-dessous. Voir [COMPTES.md](COMPTES.md) pour la source et la sauvegarde de cette synchronisation.
+
+- Version précédente conservée : `/var/www/festi-app/releases/20261010-01`.
+- Sauvegarde cohérente SQLite, environnement privé, configuration Nginx et chemin de la version précédente : `/var/backups/festi-app/20261017-accounts-info-140429`, accessible à root seulement. Intégrité SQLite vérifiée avant et après migration.
+- Dix migrations appliquées ; 190 comptes importés depuis le fichier privé, sans publication de noms ni de codes dans les fichiers web. Clé serveur créée sur place, conservée dans `/etc/festi-app.env` en mode 600. Fichier d’import temporaire supprimé.
+- `TRUST_PROXY=loopback` et remplacement de l’en-tête `X-Forwarded-For` par l’adresse vue par Nginx. Routes Maestro et configuration TLS conservées ; contrôle Nginx réussi.
+- Vérifications : lint, typage, compilation, huit tests ; cinq routes publiques et API HTTPS accessibles ; informations, horaires, localisation, plan et formulaire Compte contrôlés sur mobile/paysage. HTML de l’accueil Maestro identique avant et après. Aucun compte réel utilisé pour les vérifications navigateur en production.
+- Retour arrière : arrêter le service, préserver la base courante et ses WAL, restaurer la sauvegarde cohérente et l’environnement privé, puis rétablir le lien vers la version précédente et redémarrer. Vérifier les données avant toute restauration ; cette opération peut supprimer les réponses reçues depuis la sauvegarde.
 
 ## Installation
 
@@ -14,13 +34,17 @@ Les fichiers de `deploy` sont des modèles à adapter au domaine et au serveur. 
 HOST=127.0.0.1
 PORT=3001
 DATABASE_PATH=/var/lib/festi-app/festi.sqlite
+ACCOUNT_SECRET=<cle-aleatoire-stable-au-moins-32-caracteres>
+TRUST_PROXY=loopback
 ```
 
 6. Installer `deploy/festi-app.service` dans `/etc/systemd/system/`, puis exécuter `sudo systemctl daemon-reload` et `sudo systemctl enable --now festi-app`.
 7. Adapter le domaine dans `deploy/nginx.conf`, installer la configuration dans les sites Nginx et l'activer. Vérifier `sudo nginx -t` avant de recharger Nginx.
 8. Configurer le DNS et un certificat HTTPS pour le domaine avant ouverture aux invités. Le modèle fourni couvre seulement HTTP ; ajouter la configuration TLS et la redirection vers HTTPS avec l'outil de certificat choisi.
 
-Vérifier `curl http://127.0.0.1:3001/api/health`, les quatre URL publiques en accès direct, puis les images et les erreurs API. Les journaux sont disponibles via `journalctl -u festi-app`.
+Importer les comptes avec la même clé et la même base que le service, selon [COMPTES.md](COMPTES.md). Sans import, aucun code n’est accepté. La clé est obligatoire pour démarrer le service en production.
+
+Vérifier `curl http://127.0.0.1:3001/api/health`, les cinq URL en accès direct, puis les images et les erreurs API. Tester connexion, réponse, reconnexion et déconnexion sur HTTPS. Les journaux sont disponibles via `journalctl -u festi-app`.
 
 ## Sauvegarde et restauration
 
@@ -31,7 +55,7 @@ sqlite3 /var/lib/festi-app/festi.sqlite ".backup '/chemin/sauvegardes/festi.sqli
 sqlite3 /chemin/sauvegardes/festi.sqlite "PRAGMA integrity_check;"
 ```
 
-Planifier les sauvegardes selon la fréquence de modification du contenu et conserver une copie hors du serveur. Vérifier une restauration sur une copie avant de considérer la procédure comme validée.
+Planifier les sauvegardes selon la fréquence de modification du contenu et conserver une copie hors du serveur. Sauvegarder également `ACCOUNT_SECRET` dans un emplacement sécurisé distinct de la base : les empreintes des codes en dépendent. Vérifier une restauration sur une copie avant de considérer la procédure comme validée.
 
 Pour restaurer : arrêter le service, conserver l'ensemble de la base actuelle et de ses éventuels fichiers `-wal` et `-shm` dans un répertoire de secours, installer la sauvegarde à la place de la base, rétablir le propriétaire `festi-app`, puis redémarrer et vérifier l'API. Ne pas associer les anciens fichiers WAL à la base restaurée.
 

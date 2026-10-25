@@ -15,7 +15,9 @@
     "test": "tsx --test tests/*.test.ts",
     "build": "npm run typecheck && vite build && tsc -p tsconfig.server.json",
     "start": "node --env-file-if-exists=.env dist-server/server/index.js",
-    "db:migrate": "tsx --env-file-if-exists=.env server/migrate.ts"
+    "db:migrate": "tsx --env-file-if-exists=.env server/migrate.ts",
+    "guests:import": "tsx --env-file-if-exists=.env server/import-guests.ts",
+    "guests:export": "tsx --env-file-if-exists=.env server/export-responses.ts"
   },
   "dependencies": {
     "express": "^5.3.0",

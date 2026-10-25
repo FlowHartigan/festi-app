@@ -18,7 +18,7 @@ Les détails visuels — couleurs précises, formes du dock, icônes, transparen
 
 ## Navigation confirmée
 
-L’application comporte **quatre pages principales**, accessibles par un **dock en bas de l’écran**.
+L’application comporte **cinq pages principales**, accessibles par un **dock en bas de l’écran**.
 
 | Position | Page | Fonction principale |
 |---|---|---|
@@ -26,10 +26,11 @@ L’application comporte **quatre pages principales**, accessibles par un **dock
 | 2 | Line-up | Découvrir les différents moments du festival |
 | 3 | Plan | Explorer le plan interactif du mariage |
 | 4 | Informations | Consulter les informations relatives au mariage |
+| 5 | Compte | Répondre pour sa présence et son couchage en van |
 
 Principes de réalisation du dock :
 
-- Le rendre accessible sur chacune des quatre pages.
+- Le rendre accessible sur chacune des cinq pages.
 - Identifier clairement la page active.
 - Associer une icône et un libellé compréhensible à chaque destination.
 - Réserver suffisamment d’espace pour qu’il ne masque pas le contenu.
@@ -98,25 +99,38 @@ Les interactions doivent fonctionner au toucher et au clavier. Prévoir une alte
 
 ### Contenu demandé
 
-Rassembler les informations utiles relatives au mariage dans une page facile à parcourir sur téléphone.
+Rassembler les informations utiles relatives au mariage dans six catégories dépliables, dans cet ordre : **Horaires**, **Petits bouts**, **Restauration**, **Hébergement**, **Localisation**, **Infos divers**. Toutes sont repliées à l’ouverture ; plusieurs peuvent rester ouvertes simultanément. Le toucher et le clavier doivent permettre de les ouvrir et de les fermer.
+
+La rubrique Horaires présente les repères pratiques confirmés dans un langage festival : ouverture à 16 h 30 le samedi, coupure du son à 4 h du matin et départ du site à 5 h dans la nuit du samedi au dimanche. Aucun programme n’est prévu le dimanche. Le détail des activités reste dans le Line-up. Les informations existantes sur les vans sont rangées dans Hébergement, le lieu dans Localisation et l’esprit du festival dans Infos divers. Les rubriques encore sans contenu affichent une indication d’informations à venir, sans inventer de consignes pour les enfants, de menus ni de modalités d’hébergement.
 
 ### Contenu à définir
 
-Les rubriques et leur contenu restent à préciser. L’accès au lieu, les possibilités de dormir sur place et les conseils pratiques sont des pistes cohérentes avec le contexte mariage, à sélectionner selon les besoins réels des invités.
+La rubrique « Petits bouts » précise que les enfants ne peuvent pas être accueillis pour des raisons d’organisation et de contraintes liées au lieu. Le texte exprime les regrets des mariés et remercie les invités de leur compréhension. Aucune exception ni solution de garde n’est définie.
+
+La catégorie Hébergement contient deux sous-rubriques dépliables : **Venir en van** et **Dormir à proximité**. La première conserve les informations confirmées sur l’espace vans. La seconde présente dix hébergements autour de Saint-Poncy, avec nom, type, commune et lien direct, ouvrant dans un nouvel onglet. Les adresses sont vérifiées mais ne constituent pas des disponibilités confirmées pour le mariage ni des réservations. Voir [les sources de la sélection](HEBERGEMENTS.md).
+
+Le contenu détaillé des six rubriques reste à préciser. L’accès au lieu, les possibilités de dormir sur place et les conseils pratiques sont des pistes cohérentes avec le contexte mariage, à sélectionner selon les besoins réels des invités.
 
 Présenter seulement les informations disponibles et distinguer les réservations confirmées des options envisagées. Ne pas créer de contacts, de modalités de transport ou de consignes qui n’ont pas été fournis.
 
 ## Périmètre initial
 
-Le périmètre confirmé porte sur les quatre pages, leur navigation par dock, le style iOS, le thème mariage festival et le plan interactif.
+Le périmètre confirmé porte sur les cinq pages, leur navigation par dock, le style iOS, le thème mariage festival, le plan interactif et l’espace personnel.
 
-L’authentification, un espace d’administration, les confirmations de présence, les notifications, le mode hors ligne et l’installation sur l’écran d’accueil restent des décisions distinctes. Ne pas les considérer comme des fonctionnalités déjà demandées.
+Depuis le 17 octobre 2026, l’onglet Compte et l’accès par code personnel à quatre chiffres sont demandés. Chaque invité confirme individuellement sa présence et indique s’il compte dormir dans un van sur l’espace dédié. Le classeur privé fournit les codes individuels ; les noms et codes ne doivent jamais être intégrés aux fichiers publics.
+
+L’accueil du compte propose deux boutons distincts : « Ma présence » et « Ma nuit en van ». Chaque bouton ouvre son formulaire et son enregistrement séparé ; la présence peut être confirmée sans répondre immédiatement pour le van. Les deux boutons indiquent l’état des réponses et permettent de les modifier. La rubrique van demande d’abord de confirmer sa présence.
+
+Les réponses sont modifiables et persistantes. Une absence implique l’absence de couchage en van. Tant qu’un invité n’a pas enregistré sa réponse, il reste « sans réponse ». Le choix du van indique une intention de couchage, sans promettre une réservation ni une capacité qui n’a pas été définie. L’organisateur peut récupérer les réponses par export local.
+
+Un espace d’administration web, les notifications, le mode hors ligne et l’installation sur l’écran d’accueil restent des décisions distinctes.
 
 La base de données et l’hébergement Linux font partie du cadre technique existant. Le choix des données à stocker et leur mode de mise à jour se fera à partir du contenu et des besoins de gestion réellement définis.
 
 ## Critères d’acceptation de la première version
 
-- Les quatre pages sont accessibles depuis le dock et la destination active est identifiable.
+- Les cinq pages sont accessibles depuis le dock et la destination active est identifiable.
+- Le code personnel ouvre uniquement les réponses de l’invité concerné. La présence et le van sont enregistrés, restent disponibles après reconnexion et peuvent être modifiés.
 - L’accueil montre le logo choisi et la date correcte du festival.
 - Le line-up présente les moments fournis de façon lisible et respecte leurs conditions d’accès.
 - Le plan reprend le document fourni et les zones définies réagissent à la sélection en donnant accès à leurs informations.
@@ -125,5 +139,7 @@ La base de données et l’hébergement Linux font partie du cadre technique exi
 - Les textes et le design respectent l’identité du mariage et les indications du skill mariage.
 
 ## Évolution de cette note
+
+La rubrique « Localisation » présente l’adresse de La Source du Buron (Domaine de Luc, 15500 Saint-Poncy), trois accès directs à Google Maps, Plans et Waze, ainsi qu’une carte Google Maps interactive.
 
 Mettre à jour cette note au fil des décisions de Florian et Charline. Une nouvelle instruction explicite remplace une décision antérieure ; conserver une distinction claire entre demandes confirmées, propositions de réalisation et informations encore manquantes.

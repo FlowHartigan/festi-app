@@ -23,21 +23,33 @@ Le navigateur demande `GET /api/festival`. Le serveur lit SQLite et valide le co
 | `tests` | Vérifications d'intégration API et persistance |
 | `skills` | Instructions et contexte du projet |
 
-Les quatre URL sont `/`, `/line-up`, `/plan` et `/informations`. La navigation conserve la structure commune. Une erreur de chargement propose un rechargement ; une URL inconnue affiche une page dédiée.
+Les cinq URL sont `/`, `/line-up`, `/plan`, `/informations` et `/compte`. La navigation conserve la structure commune. Une erreur de chargement propose un rechargement ; une URL inconnue affiche une page dédiée.
 
 ## Données et migrations
 
 Pour ce premier périmètre de consultation, `festival_content` contient un document JSON validé, identifié par `id = 1`. Le programme, les informations et les points du plan font partie du même contenu. La table `migrations` mémorise les versions appliquées. La migration initiale est transactionnelle et ne réinitialise jamais une base existante au redémarrage.
 
-`server/seed.ts` fournit uniquement le contenu initial. Modifier ce fichier ne met pas à jour une base déjà créée. L'édition des données persistées devra passer par un outil explicite ou une future interface d'administration, avec validation et sauvegarde. Il n'existe actuellement aucune route publique d'écriture.
+`server/seed.ts` fournit uniquement le contenu initial. Modifier ce fichier ne met pas à jour une base déjà créée. L'édition du programme devra passer par un outil explicite ou une future interface d'administration, avec validation et sauvegarde. Les écritures de présence et de van sont réservées à l’invité connecté via les routes de compte.
 
 La migration 2 ajoute les activités de 17 h à 19 h et le DJ set de 19 h à 20 h, confirmés par les mariés. Elle conserve le contenu existant et évite les doublons par identifiant. Les étapes acceptent une heure de fin facultative et se déplient dans le planning pour afficher description et lieu.
 
-Des tables dédiées deviendront pertinentes avec des inscriptions, des droits ou une édition concurrente. PostgreSQL sera à considérer si plusieurs serveurs doivent écrire dans la même base. Ces fonctionnalités ne font pas partie du socle actuel.
+La migration 5 ajoute la rubrique pratique `horaires` aux bases existantes si elle n’est pas déjà présente. Son contenu vient de `server/practical-hours.ts`, également utilisé pour les nouvelles bases : ouverture à 16 h 30, coupure du son à 4 h, départ à 5 h et aucun programme le dimanche. Le programme du Line-up et les réponses des invités sont conservés.
+
+La migration 6 remplace uniquement cette rubrique par trois repères structurés (`schedule`) et une note courte. L’interface les affiche dans un encadré, avec les heures alignées à gauche. Les horaires de fin portent `nextDay: true` pour préciser le passage au dimanche aux technologies d’assistance.
+
+La migration 7 ajoute le texte « Petits bouts » aux bases existantes si cette rubrique est absente, à partir de `server/children-information.ts`, également utilisé pour les nouvelles bases. Elle conserve les autres informations et les réponses des invités.
+
+La migration 8 ajoute `hebergements-proximite` et ses dix adresses si cette rubrique est absente. Le champ optionnel `lodgings` contient le nom, le type, la commune et l’URL HTTPS de chaque hébergement. Le navigateur les présente dans la sous-rubrique « Dormir à proximité », à côté de « Venir en van ». Les sources et la date de vérification sont dans [HEBERGEMENTS.md](HEBERGEMENTS.md).
+
+La migration 3 ajoute les tables `guests`, `account_sessions` et `account_attempts` pour les comptes, réponses et protections de connexion. La migration 4 permet de confirmer la présence avant de répondre pour le van, tout en conservant les comptes, réponses et sessions. Les invités sont importés séparément à partir d’un fichier privé ; aucun nom ni code ne fait partie des données initiales versionnées. Voir [COMPTES.md](COMPTES.md). PostgreSQL sera à considérer si plusieurs serveurs doivent écrire dans la même base.
 
 La date du mariage est une date civile ; l'affichage utilise `Europe/Paris`. Le programme public contient seulement les moments confirmés pour les invités. La cérémonie civile en petit comité n'est pas ajoutée au programme public.
 
 ## Plan et identité
+
+La migration 10 renomme le repère de 4 h « Fin du son » en « Fin de la musique », sans modifier les autres horaires ni les réponses des invités.
+
+La migration 9 met à jour uniquement la rubrique `lieu` avec une adresse structurée (`location`), partagée avec les nouvelles bases via `server/venue-location.ts`. Adresse vérifiée le 17 octobre 2026 sur [le site officiel du lieu](https://www.lasourceduburon.fr/contact-plan-dacces/) : Domaine de Luc, 15500 Saint-Poncy, France. Le navigateur construit les liens Google Maps, Plans et Waze depuis cette même destination. La carte Google Maps est une iframe publique chargée à la demande du navigateur (`loading="lazy"`), sans clé API ni demande de géolocalisation. Les liens restent utilisables si la carte externe ne charge pas.
 
 Le logo PNG est un rendu du PDF fourni. Les originaux du logo et du plan sont conservés dans `assets`.
 
