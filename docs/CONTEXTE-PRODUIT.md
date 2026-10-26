@@ -57,7 +57,7 @@ Présenter les différents moments du mariage comme le line-up d’un festival.
 
 Organiser les moments dans un ordre chronologique lisible sur téléphone, avec les heures dans une colonne à gauche et les étapes à droite, comme un planning de festival. Chaque étape est cliquable : elle déplie sa description et son lieu sous le titre, puis se replie au second clic. Le toucher et le clavier doivent fonctionner. Plusieurs étapes peuvent rester ouvertes pour consulter le programme.
 
-La référence visuelle fournie inspire la structure du planning uniquement. Conserver la charte initiale : fond blanc, doré du logo, accents olive et typographie système. Ne pas reprendre les couleurs violettes de la référence. Les heures viennent du programme fourni ; ne pas ajouter de créneaux fictifs pour remplir la liste.
+La référence visuelle fournie inspire la structure du planning uniquement. Appliquer la direction du faire-part validée : fond crème, encre olive, accents safran et corail, titres rétro et texte système. Ne pas reprendre les couleurs violettes de la référence. Les heures viennent du programme fourni ; ne pas ajouter de créneaux fictifs pour remplir la liste.
 
 Le traitement visuel doit évoquer un programme de festival. Il n’impose pas que chaque moment soit un concert ou un artiste.
 
@@ -143,3 +143,7 @@ La base de données et l’hébergement Linux font partie du cadre technique exi
 La rubrique « Localisation » présente l’adresse de La Source du Buron (Domaine de Luc, 15500 Saint-Poncy), trois accès directs à Google Maps, Plans et Waze, ainsi qu’une carte Google Maps interactive.
 
 Mettre à jour cette note au fil des décisions de Florian et Charline. Une nouvelle instruction explicite remplace une décision antérieure ; conserver une distinction claire entre demandes confirmées, propositions de réalisation et informations encore manquantes.
+
+## Direction artistique validée — 26 octobre 2026
+
+Les maquettes inspirées du faire-part remplacent la charte blanche initiale. L’accueil utilise un titre typographique rétro et quelques motifs floraux, les autres pages restent sobres. Le dock à cinq onglets et les parcours sont conservés. Voir [la direction et ses vérifications](DESIGN.md). Les fichiers du logo historique restent disponibles comme sources ; cette présentation remplace son affichage sur l’accueil. Les horaires restent ceux de l’API en attendant leur harmonisation explicite.

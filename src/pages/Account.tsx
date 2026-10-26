@@ -112,22 +112,22 @@ export function Account() {
   const answered = account !== null && (section === 'presence' ? account.attending !== null : account.van !== null);
   return <section className="page account-page">
     {account && section && <Link className="account-back" to="/compte" onClick={openSection}><ArrowLeft size={18} aria-hidden="true" /> Mon compte</Link>}
-    <div className="account-heading"><h1 ref={titleRef} tabIndex={-1}>{account && section ? section === 'presence' ? 'Ma présence' : 'Ma nuit en van' : 'Compte'}</h1><UserRound size={28} aria-hidden="true" /></div>
+    <div className="account-heading"><h1 ref={titleRef} tabIndex={-1}>{account && section ? section === 'presence' ? 'Ma présence' : 'Ma nuit en van' : 'Ton espace'}</h1><UserRound size={28} aria-hidden="true" /></div>
     {loading ? <p role="status">Chargement de votre espace…</p> : loadFailed ? <>
       <p role="alert" className="account-error">{error}</p>
       <button className="action" onClick={() => { setLoading(true); setReload(value => value + 1); }}>Réessayer</button>
     </> : !account ? <>
-      <p className="intro">Votre petit coin du festival, pour nous dire si vous serez de la fête.</p>
       <form className="account-login" onSubmit={login} aria-busy={busy}>
         <KeyRound size={27} aria-hidden="true" className="account-key" />
-        <h2>Bienvenue dans votre espace</h2>
-        <label htmlFor="access-code">Votre code à 4 chiffres</label>
-        <p id="code-help" className="account-hint">Utilisez le code personnel qui vous a été communiqué.</p>
-        <input id="access-code" className="account-code" type="password" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{4}" maxLength={4} minLength={4} required value={code} disabled={busy}
+        <h2>Bienvenue à la fête</h2>
+        <p className="account-login-intro">Entre ton code personnel pour répondre à ton invitation.</p>
+        <label htmlFor="access-code">Ton code à 4 chiffres</label>
+        <p id="code-help" className="account-hint">Le code figure sur ton invitation.</p>
+        <input id="access-code" className="account-code" placeholder="– – – –" type="password" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{4}" maxLength={4} minLength={4} required value={code} disabled={busy}
           aria-describedby={error ? 'code-help account-error' : 'code-help'} aria-invalid={!!error}
           onChange={event => { setCode(event.target.value.replace(/[^0-9]/g, '').slice(0, 4)); setError(''); }} />
         {error && <p id="account-error" role="alert" className="account-error">{error}</p>}
-        <button className="account-primary" disabled={busy}>{busy ? 'Connexion…' : 'Accéder à mon espace'}</button>
+        <button className="account-primary" disabled={busy}>{busy ? 'Connexion…' : 'Accéder à mon compte'}</button>
       </form>
     </> : <>
       {!section ? <>

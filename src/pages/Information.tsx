@@ -1,3 +1,4 @@
+import { FestivalFlower } from '../components/FestivalFlower';
 import { useFestival } from '../components/Layout';
 import { VenueLocation } from '../components/VenueLocation';
 import { Baby, BedDouble, ChevronDown, Clock, ExternalLink, Info, MapPin, Tent, Utensils } from 'lucide-react';
@@ -15,7 +16,7 @@ const formatTime = (time: string) => time.replace(/^0/, '').replace(':00', ' h')
 
 export function Information() {
   const { information, program } = useFestival();
-  return <section className="page"><h1>Les infos pratiques</h1><p className="intro">Tout pour profiter de la fête.</p>
+  return <section className="page information-page"><div className="page-heading"><h1>Informations</h1><FestivalFlower /></div><p className="intro">Les petits détails pour profiter de la fête.</p>
     <div className="information-list">{categories.map(category => {
       const Icon = category.icon;
       const items = information.filter(item => (categories.find(entry => entry.itemIds.includes(item.id))?.id ?? 'divers') === category.id);

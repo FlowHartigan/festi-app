@@ -1,21 +1,17 @@
 import { useFestival } from '../components/Layout';
 import { ChevronDown, MapPin } from 'lucide-react';
-import { useId } from 'react';
+import { FestivalFlower } from '../components/FestivalFlower';
 
 export function Lineup() {
-  const { program, date, timezone, logo } = useFestival();
-  const monogramClipId = useId();
-  const day = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', timeZone: timezone })
+  const { program, date, timezone } = useFestival();
+  const day = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: timezone })
     .format(new Date(`${date}T12:00:00Z`));
   return <section className="page lineup-page">
     <div className="lineup-heading">
       <h1>Line-up</h1>
-      <svg className="lineup-monogram" viewBox="245 28 570 645" role="img" aria-label="FC — Florian et Charline">
-        <defs><clipPath id={monogramClipId}><path d="M245 28H815V673H450V610H245Z" /></clipPath></defs>
-        <image href={logo} width={1055} height={1200} clipPath={`url(#${monogramClipId})`} />
-      </svg>
+      <FestivalFlower />
     </div>
-    <div className="lineup-day"><time dateTime={date}>{day}</time><span>Le programme</span></div>
+    <div className="lineup-day"><time dateTime={date}>{day}</time></div>
     {program.length > 0 ? <>
       <ol className="festival-schedule">{[...program].sort((a, b) => a.time.localeCompare(b.time)).map(moment =>
         <li key={moment.id} className="schedule-row">
@@ -32,7 +28,7 @@ export function Lineup() {
           </details>
         </li>
       )}</ol>
-      <p className="quiet-note">La suite du programme sera dévoilée ici.</p>
+      <p className="quiet-note">Touche un moment pour en savoir plus.</p>
     </> : <p className="quiet-note">Le programme sera dévoilé prochainement.</p>}
   </section>;
 }
