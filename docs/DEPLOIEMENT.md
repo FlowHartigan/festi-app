@@ -62,3 +62,11 @@ Pour restaurer : arrêter le service, conserver l'ensemble de la base actuelle e
 ## Mise à jour et retour arrière
 
 Compiler une nouvelle version séparément, sauvegarder SQLite, basculer le lien `current` et redémarrer le service. Vérifier immédiatement `/api/health`, `/api/festival` et les routes du frontend. Revenir au lien précédent seulement si son code reste compatible avec les migrations appliquées ; sinon utiliser une procédure de restauration préparée. La base reste toujours hors des répertoires de version.
+
+## Livraison de la refonte 0.2.0
+
+La refonte ne modifie aucun module serveur, aucune migration et aucune dépendance. Compiler depuis le commit validé et livrer dist, dist-server, package.json et package-lock.json dans une nouvelle release. Comparer dist-server à la release active avant la bascule : toute différence doit être examinée, pas déployée implicitement. Les dépendances de production existantes peuvent être recopiées puisque leurs versions sont inchangées.
+
+Avant la bascule, créer une sauvegarde cohérente SQLite avec .backup dans un répertoire root en mode 700 et vérifier son intégrité. Conserver le chemin de la release précédente et une copie protégée de la configuration. Contrôler aussi la page Maestro, qui partage le serveur.
+
+Basculer atomiquement le lien current, redémarrer festi-app et vérifier la santé, les cinq routes et la police locale via HTTPS. Pour cette livraison sans migration, un retour au lien précédent puis un redémarrage suffisent ; ne pas restaurer la base, ce qui effacerait des réponses reçues entre-temps. La base et la clé restent dans leurs chemins persistants.
