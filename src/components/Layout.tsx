@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { Home, Music2, Map, Info, UserRound } from 'lucide-react';
+import { Home, Music2, MapPin, Info, UserRound } from 'lucide-react';
 import { NavLink, Outlet, useLoaderData, useLocation, useOutletContext } from 'react-router-dom';
 import type { Festival } from '../../shared/festival';
 
 const destinations = [
   { to: '/', label: 'Accueil', icon: Home },
   { to: '/line-up', label: 'Line-up', icon: Music2 },
-  { to: '/plan', label: 'Plan', icon: Map },
+  { to: '/plan', label: 'Plan', icon: MapPin },
   { to: '/informations', label: 'Infos', icon: Info },
   { to: '/compte', label: 'Compte', icon: UserRound },
 ];

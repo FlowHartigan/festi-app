@@ -1,11 +1,12 @@
+import { HeadingArtwork } from '../components/HeadingArtwork';
 import { FestivalFlower } from '../components/FestivalFlower';
 import { useFestival } from '../components/Layout';
 import { VenueLocation } from '../components/VenueLocation';
-import { Baby, BedDouble, ChevronDown, Clock, ExternalLink, Info, MapPin, Tent, Utensils } from 'lucide-react';
+import { UsersRound, BedDouble, ChevronDown, Clock, ExternalLink, Info, MapPin, Tent, Utensils } from 'lucide-react';
 
 const categories = [
   { id: 'horaires', title: 'Horaires', icon: Clock, itemIds: ['horaires'] },
-  { id: 'petits-bouts', title: 'Petits bouts', icon: Baby, itemIds: ['petits-bouts', 'enfants'] },
+  { id: 'petits-bouts', title: 'Petits bouts', icon: UsersRound, itemIds: ['petits-bouts', 'enfants'] },
   { id: 'restauration', title: 'Restauration', icon: Utensils, itemIds: ['restauration'] },
   { id: 'hebergement', title: 'Hébergement', icon: BedDouble, itemIds: ['hebergement', 'van', 'hebergements-proximite'] },
   { id: 'localisation', title: 'Localisation', icon: MapPin, itemIds: ['localisation', 'lieu'] },
@@ -16,7 +17,7 @@ const formatTime = (time: string) => time.replace(/^0/, '').replace(':00', ' h')
 
 export function Information() {
   const { information, program } = useFestival();
-  return <section className="page information-page"><div className="page-heading"><h1>Informations</h1><FestivalFlower /></div><p className="intro">Les petits détails pour profiter de la fête.</p>
+  return <section className="page information-page"><div className="page-heading"><h1><HeadingArtwork kind="information" label="Informations" /></h1><FestivalFlower /></div><p className="intro">Les petits détails pour profiter de la fête.</p>
     <div className="information-list">{categories.map(category => {
       const Icon = category.icon;
       const items = information.filter(item => (categories.find(entry => entry.itemIds.includes(item.id))?.id ?? 'divers') === category.id);
