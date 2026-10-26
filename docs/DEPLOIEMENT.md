@@ -1,11 +1,11 @@
 # Déploiement Ubuntu
 
-## Serveur existant — vérifié le 17 octobre 2026
+## Serveur existant — vérifié le 26 octobre 2026
 
 - Hôte SSH : `vps-328a8329.vps.ovh.ca` (IPv4 constatée : `15.235.100.20`). Utiliser le nom d’hôte.
 - Utilisateur : `ubuntu` ; clé locale à sélectionner explicitement : `C:\Users\flori\.ssh\festi-app-vps`.
 - Site : `https://dms-app.fr/` ; service `festi-app` constaté actif.
-- Version active depuis le 17 octobre 2026 : `/var/www/festi-app/releases/20261017-accounts-info`, via le lien `/var/www/festi-app/current`.
+- Version active depuis le 26 octobre 2026 : /var/www/festi-app/releases/20261026-0.2.0, via le lien /var/www/festi-app/current.
 - Maestro partage ce serveur sous `/maestro/`. Préserver ses fichiers, ses conteneurs et ses routes Nginx ; ne pas remplacer la configuration Nginx complète par le modèle local.
 - L’ancienne cible `187.77.142.73` ne correspond pas à l’adresse actuelle du serveur documenté et ne doit pas servir au déploiement de cette application.
 
@@ -70,3 +70,13 @@ La refonte ne modifie aucun module serveur, aucune migration et aucune dépendan
 Avant la bascule, créer une sauvegarde cohérente SQLite avec .backup dans un répertoire root en mode 700 et vérifier son intégrité. Conserver le chemin de la release précédente et une copie protégée de la configuration. Contrôler aussi la page Maestro, qui partage le serveur.
 
 Basculer atomiquement le lien current, redémarrer festi-app et vérifier la santé, les cinq routes et la police locale via HTTPS. Pour cette livraison sans migration, un retour au lien précédent puis un redémarrage suffisent ; ne pas restaurer la base, ce qui effacerait des réponses reçues entre-temps. La base et la clé restent dans leurs chemins persistants.
+
+### Livraison 0.2.0 — 26 octobre 2026
+
+- Source : commit 8a0873b521f25768e07a5c6c663fbef136f65be6, PR de design #2 après remise à niveau du dépôt #1.
+- Release active : /var/www/festi-app/releases/20261026-0.2.0. Précédente conservée : /var/www/festi-app/releases/20261017-accounts-info.
+- Sauvegardes cohérentes vérifiées : /var/backups/festi-app/20261026-0.2.0/festi.sqlite et festi-before-switch.sqlite. Configuration privée et chemin précédent conservés dans ce répertoire root en mode 700.
+- Les seuls écarts de compilation serveur étaient des fins de ligne CRLF. Après vérification, les modules de production ont été recopiés à l’identique ; aucune migration ni réimport de comptes.
+- Contrôles après bascule : service actif, santé locale et HTTPS, cinq routes et police locale, intégrité SQLite, 10 migrations et 164 comptes ; empreinte de la page Maestro inchangée.
+- Contrôles Chromium HTTPS : cinq pages mobiles, palette et police chargées, aucun débordement horizontal ni exception JavaScript. Aucun compte réel utilisé.
+- Retour arrière compatible : rétablir atomiquement current vers la release du 17 octobre et redémarrer festi-app ; conserver la base courante et ses réponses.

@@ -45,3 +45,10 @@ Les leçons servent de mémoire technique, sans élargir les permissions de l’
 - **Cause circonscrite :** l’échec dépend de l’environnement d’exécution restreint. La même commande, sans changement de code ni de dépendances, réussit après une exécution hors du bac à sable autorisée par le mécanisme d’approbation. La cause interne Windows précise n’est pas établie ; le message ne démontre pas un manque de mémoire de l’application.
 - **Solution vérifiée :** exécuter la commande de test via le mécanisme d’escalade prévu lorsque celui-ci l’autorise. Les six tests d’intégration, dont ceux des comptes, passent dans ce contexte.
 - **Prévention :** si cette signature réapparaît avant les tests, distinguer le problème du lanceur des échecs applicatifs. Ne pas réinstaller les dépendances ni changer le code métier sur la seule base de `ENOMEM`. Respecter les décisions d’approbation ; si l’exécution reste bloquée, le signaler.
+
+### 2026-10-26 — Différences de compilation dues aux fins de ligne Windows
+
+- **Symptôme :** la comparaison binaire avant livraison de la refonte 0.2.0 signale trois modules serveur différents, alors que les sources métier sont inchangées.
+- **Cause démontrée :** les fins de ligne CRLF du checkout Windows sont conservées dans les chaînes SQL multilignes émises par TypeScript. Le diff brut montre ces seules différences ; la comparaison de tout dist-server avec diff --strip-trailing-cr -qr ne signale plus aucun écart.
+- **Correction vérifiée :** après inspection du diff, conservation des modules serveur exacts de la release active dans la nouvelle release. La comparaison binaire est alors identique ; les contrôles HTTPS, SQLite et comptes passent après bascule.
+- **Prévention :** pour une livraison uniquement visuelle, comparer les modules compilés avant de basculer. Si les empreintes diffèrent, examiner le diff et vérifier les fins de ligne avant de conclure à un changement métier. Ne pas ignorer automatiquement les différences ; un écart autre que les fins de ligne doit être examiné séparément.
