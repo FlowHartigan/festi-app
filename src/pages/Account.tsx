@@ -1,6 +1,7 @@
+import { HeadingArtwork } from '../components/HeadingArtwork';
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
-import { KeyRound, Tent, UserRound, Check, CalendarCheck, ChevronRight, ArrowLeft } from 'lucide-react';
+import { KeyRound, Tent, Check, CalendarCheck, ChevronRight, ArrowLeft } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { accountSchema } from '../../shared/account';
 import type { Account as GuestAccount } from '../../shared/account';
@@ -112,22 +113,22 @@ export function Account() {
   const answered = account !== null && (section === 'presence' ? account.attending !== null : account.van !== null);
   return <section className="page account-page">
     {account && section && <Link className="account-back" to="/compte" onClick={openSection}><ArrowLeft size={18} aria-hidden="true" /> Mon compte</Link>}
-    <div className="account-heading"><h1 ref={titleRef} tabIndex={-1}>{account && section ? section === 'presence' ? 'Ma présence' : 'Ma nuit en van' : 'Ton espace'}</h1><UserRound size={28} aria-hidden="true" /></div>
+    <div className="account-heading"><h1 ref={titleRef} tabIndex={-1}>{account && section ? section === 'presence' ? 'Ma présence' : 'Ma nuit en van' : <HeadingArtwork kind="account" label="Ton espace" />}</h1></div>
     {loading ? <p role="status">Chargement de votre espace…</p> : loadFailed ? <>
       <p role="alert" className="account-error">{error}</p>
       <button className="action" onClick={() => { setLoading(true); setReload(value => value + 1); }}>Réessayer</button>
     </> : !account ? <>
       <form className="account-login" onSubmit={login} aria-busy={busy}>
-        <KeyRound size={27} aria-hidden="true" className="account-key" />
+        <div className="account-login-welcome"><KeyRound size={44} aria-hidden="true" className="account-key" /><div>
         <h2>Bienvenue à la fête</h2>
-        <p className="account-login-intro">Entre ton code personnel pour répondre à ton invitation.</p>
+        <p className="account-login-intro">Entre ton code personnel pour répondre à ton invitation.</p></div></div>
         <label htmlFor="access-code">Ton code à 4 chiffres</label>
-        <p id="code-help" className="account-hint">Le code figure sur ton invitation.</p>
         <input id="access-code" className="account-code" placeholder="– – – –" type="password" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{4}" maxLength={4} minLength={4} required value={code} disabled={busy}
           aria-describedby={error ? 'code-help account-error' : 'code-help'} aria-invalid={!!error}
           onChange={event => { setCode(event.target.value.replace(/[^0-9]/g, '').slice(0, 4)); setError(''); }} />
         {error && <p id="account-error" role="alert" className="account-error">{error}</p>}
         <button className="account-primary" disabled={busy}>{busy ? 'Connexion…' : 'Accéder à mon compte'}</button>
+        <p id="code-help" className="account-hint">Le code figure sur ton invitation.</p>
       </form>
     </> : <>
       {!section ? <>

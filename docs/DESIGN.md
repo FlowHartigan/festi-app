@@ -1,23 +1,21 @@
 # Direction artistique — faire-part
 
-Direction validée sur maquette le 25 octobre 2026, intégrée le 26 octobre 2026.
+La correction 0.2.1 reprend les deux maquettes validées (Accueil / Informations / Compte et Line-up / Plan) plutôt qu’une simple adaptation de leur palette.
 
-- Fond crème #fff8e9, encre olive #35401e, surfaces #fffdf7.
-- Safran #cc861a et corail #df684d réservés aux ornements. Les textes utiles restent foncés.
-- Titres Berkshire Swash (SIL Open Font License), fichier servi localement depuis public/assets/fonts/. Texte courant en police système ; aucune requête Google Fonts au chargement.
-- Accueil : titre typographique inspiré du faire-part, deux fleurs vectorielles, rubans et date. Les sources du logo historique restent conservées.
-- Écrans pratiques : une petite fleur dans le titre, listes et formulaires aérés. Dock fixe à cinq destinations et zones de sécurité conservés.
-- Line-up : détails natifs dépliables. Plan : illustration SVG existante, zoom, sélection et liste de lieux repliable. La disposition du lieu ne change pas.
-- Aucun changement des horaires, de l’API, des comptes ou des migrations.
+- Fond crème #fff8e9, encre olive #35401e, surfaces #fffdf7 ; safran et corail réservés aux ornements.
+- Accueil et quatre titres principaux : graphismes recréés à partir des maquettes, servis localement en WebP dans public/assets/identity. Les titres possèdent un équivalent textuel accessible. Berkshire Swash reste disponible pour les titres variables du compte.
+- Accueil : grand lettrage, bouquet, rubans, noms en capitales, date et lieu centrés.
+- Informations : six lignes avec séparateurs fins, chevrons et fleur à tige.
+- Compte : clé à gauche du texte de bienvenue, champ pleine largeur, bouton olive et aide sous le bouton.
+- Line-up : horaires sur une ligne, activités ouvertes initialement, détails natifs dépliables.
+- Plan : illustration source détaillée optimisée en WebP, zones interactives tracées sur ses coordonnées, zoom vertical flottant et fiche de sélection. Cette illustration remplace le dessin SVG simplifié pour répondre à la demande explicite de fidélité.
+- Dock clair sans fond coloré sur la destination active, icône de repère pour Plan.
+- Les contenus de l’API, comptes, données et migrations restent inchangés. Les différences de programme entre faire-part et API ne sont pas arbitrées par cette refonte.
 
-La police est une adaptation web de la direction approuvée, pas une extraction de la typographie du faire-part. Les ornements sont du SVG léger, masqué aux technologies d’assistance.
+Les maquettes sont des images de présentation : les cadres de téléphone et barres système ne sont pas reproduits dans la page web. Les graphismes ont été recréés, et ne constituent pas des fichiers de design vectoriels originaux.
 
-## Vérifications
+## Vérifications de la correction
 
-Contrôles navigateur Chromium sur le build local, avec une base dédiée et un compte fictif : cinq routes aux formats 320×568, 390×844, 844×390 et 1280×800, absence de débordement horizontal, destination active et dock dans la fenêtre. Captures inspectées des cinq écrans.
+Lint, typage et compilation ; huit tests serveur réussis. Comparaison visuelle des captures mobiles avec les deux maquettes. Contrôles Chromium sur cinq routes aux formats 320×568, 390×844, 844×390 et 1280×800 : aucun débordement horizontal, dock dans la fenêtre, destination active correcte.
 
-Accordéons multiples, ouverture du Line-up au clavier, zoom/réinitialisation et sélection du plan ; connexion invalide puis valide ; erreur réseau avec réponse conservée ; présence et van enregistrés séparément ; déconnexion/reconnexion et rechargement avec réponses persistantes ; absence bloquant le van.
-
-Les contrôles de fenêtres ne remplacent pas un essai sur un iPhone physique avec clavier virtuel. Les horaires du faire-part diffèrent de ceux du projet : harmonisation à décider séparément.
-
-Références : [police](https://fonts.google.com/specimen/Berkshire+Swash), [champs contrôlés React](https://react.dev/reference/react-dom/components/input), [polices locales CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face).
+Ouverture/fermeture du programme au clavier, accordéons Informations, zoom/réinitialisation et sélection du plan, erreur de code puis connexion avec un compte synthétique. Aucun compte réel utilisé. Les contrôles navigateur ne remplacent pas un essai sur iPhone physique.

@@ -52,3 +52,10 @@ Les leçons servent de mémoire technique, sans élargir les permissions de l’
 - **Cause démontrée :** les fins de ligne CRLF du checkout Windows sont conservées dans les chaînes SQL multilignes émises par TypeScript. Le diff brut montre ces seules différences ; la comparaison de tout dist-server avec diff --strip-trailing-cr -qr ne signale plus aucun écart.
 - **Correction vérifiée :** après inspection du diff, conservation des modules serveur exacts de la release active dans la nouvelle release. La comparaison binaire est alors identique ; les contrôles HTTPS, SQLite et comptes passent après bascule.
 - **Prévention :** pour une livraison uniquement visuelle, comparer les modules compilés avant de basculer. Si les empreintes diffèrent, examiner le diff et vérifier les fins de ligne avant de conclure à un changement métier. Ne pas ignorer automatiquement les différences ; un écart autre que les fins de ligne doit être examiné séparément.
+
+### 2026-10-26 — Fidélité à une maquette approuvée
+
+- **Symptôme :** première refonte fonctionnelle mais jugée trop éloignée des maquettes par l’utilisateur.
+- **Cause :** substitution du lettrage et des illustrations par une police et des motifs simplifiés ; contrôles de fonctionnement insuffisants pour juger les proportions.
+- **Correction vérifiée :** reprise des graphismes, de la hiérarchie, du dock et des dispositions, avec captures des cinq pages confrontées aux maquettes.
+- **Prévention :** comparer explicitement chaque écran rendu à sa référence avant publication. Une validation du typage, des interactions et de la palette ne démontre pas la fidélité visuelle. Signaler les limites des sources raster et ne pas promettre une identité pixel par pixel non mesurée.

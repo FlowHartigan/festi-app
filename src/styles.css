@@ -225,3 +225,83 @@ p { line-height: 1.65; margin: 0; }
  .home-art { height: 100px; }
  .home-bouquet { transform: scale(.7); transform-origin: right top; }
 }
+/* Proportions and artwork of the approved mobile mockups. */
+.heading-artwork { display: block; max-width: 100%; height: auto; }
+.heading-information { width: 285px; }
+.heading-account { width: 285px; }
+.heading-lineup { width: 205px; }
+.heading-map { width: 190px; }
+.page-heading h1 { flex: 0 1 auto; }
+.page-heading { justify-content: space-between; }
+.home-wordmark { width: min(calc(100% + 48px), 480px); margin: 0 0 20px; }
+.home-wordmark img { display: block; width: 100%; height: auto; }
+.home-couple { text-transform: uppercase; font-size: 21px; letter-spacing: 1.2px; }
+.home-venue span { display: block; }
+.home-venue { margin-top: 24px; font-size: 16px; }
+.home-divider { margin-block: 25px 22px; }
+.home-date { font-size: 22px; }
+.home-date span { font-size: 18px; }
+.dock { border-radius: 30px; padding: 6px; }
+.dock a.active { background: transparent; font-weight: 500; }
+.dock a.active .lucide-house, .dock a.active .lucide-map-pin { fill: currentColor; }
+.dock a.active .lucide-map-pin circle { fill: var(--surface); stroke: var(--surface); }
+.dock a.active .lucide-info circle, .dock a.active .lucide-user-round circle { fill: currentColor; }
+.dock a.active .lucide-info path { stroke: var(--surface); }
+.information-summary h2 { min-height: 66px; }
+.information-chevron { transform: rotate(-90deg); }
+.information-category[open] .information-chevron { transform: rotate(0); }
+.account-login-welcome { display: flex; align-items: flex-start; gap: 22px; }
+.account-key { flex-shrink: 0; margin-top: 4px; }
+.account-login-welcome h2 { font-size: 22px; }
+.account-login-intro { margin-top: 10px; line-height: 1.6; }
+.account-login { padding-top: 38px; }
+.account-login label { margin-top: 46px; }
+.account-login > .account-hint { margin-top: 24px; text-align: center; }
+.account-primary { min-height: 58px; font-size: 17px; }
+.lineup-page { --hour-column: 88px; }
+.lineup-day time { font-weight: 400; }
+.schedule-end { display: inline; margin-left: 4px; font-size: inherit; }
+.schedule-time { font-size: 12px; }
+.schedule-row { padding-bottom: 30px; }
+.schedule-card { padding-inline: 12px; margin-left: 14px; }
+.schedule-card::before { left: -19px; }
+.schedule-details { margin-left: calc(var(--hour-column) + 14px); }
+.quiet-note { text-align: center; }
+.quiet-note::before { content: ''; display: block; width: 44px; height: 1px; background: var(--line); margin: 0 auto 18px; }
+.map-explorer { position: relative; margin-inline: -24px; }
+.map-scroll { max-height: 350px; border: 0; border-radius: 0; }
+.festival-venue-map { display: block; width: 100%; height: 100%; }
+.map-toolbar { position: absolute; right: 16px; top: 18px; z-index: 2; flex-direction: column; gap: 0; padding: 3px; border-radius: 16px; background: var(--surface); box-shadow: 0 3px 12px #35401e18; }
+.map-toolbar button { border: 0; background: transparent; border-radius: 10px; }
+.map-toolbar output { min-width: 0; font-size: 12px; }
+.map-toolbar .map-zoom-value { height: 30px; }
+.place-detail { position: relative; margin-top: -4px; box-shadow: 0 3px 14px #35401e0b; }
+.map-places { border: 0; margin-top: 10px; }
+.map-places summary::after { content: '›'; font-size: 25px; }
+.map-places[open] summary::after { content: '⌄'; }
+@media (max-width: 360px) {
+ .home-wordmark { width: calc(100% + 36px); }
+ .home-couple { font-size: 18px; }
+ .map-explorer { margin-inline: -18px; }
+ .lineup-page { --hour-column: 78px; }
+ .schedule-time { font-size: 11px; }
+}
+@media (min-width: 700px) {
+ .map-explorer { margin-inline: 0; }
+ .map-scroll { border-radius: 20px; }
+}
+.map-page .page-heading { justify-content: flex-start; }
+.map-toolbar output { white-space: nowrap; }
+.schedule-time { font-size: 14px; }
+.schedule-title { font-size: 17px; }
+.lineup-day { font-size: 18px; }
+.map-stage-pin { position: absolute; left: 28%; top: 53%; transform: translate(-50%, -100%); display: grid; place-items: center; width: 40px; height: 40px; border: 3px solid var(--surface); border-radius: 50% 50% 50% 0; rotate: -45deg; background: var(--olive); color: var(--surface); pointer-events: none; }
+.map-stage-pin svg { rotate: 45deg; }
+.place-detail > .place-music { width: 40px; height: 40px; padding: 9px; border-radius: 50%; background: var(--olive); color: var(--surface); }
+.dock a.active .lucide-music-2 { fill: currentColor; }
+@media(max-width:360px) { .schedule-time { font-size: 12px; } }
+.flower-stem { display: none; }
+.information-page .festival-flower { overflow: visible; }
+.information-page .flower-stem { display: initial; }
+.schedule-preview { display: block; margin-top: 5px; font-size: 14px; font-weight: 400; }
+.schedule-step[open] .schedule-preview { display: none; }
