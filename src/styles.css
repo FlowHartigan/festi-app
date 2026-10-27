@@ -296,9 +296,6 @@ p { line-height: 1.65; margin: 0; }
 .schedule-time { font-size: 14px; }
 .schedule-title { font-size: 17px; }
 .lineup-day { font-size: 18px; }
-.map-stage-pin { position: absolute; left: 28%; top: 53%; transform: translate(-50%, -100%); display: grid; place-items: center; width: 40px; height: 40px; border: 3px solid var(--surface); border-radius: 50% 50% 50% 0; rotate: -45deg; background: var(--olive); color: var(--surface); pointer-events: none; }
-.map-stage-pin svg { rotate: 45deg; }
-.place-detail > .place-music { width: 40px; height: 40px; padding: 9px; border-radius: 50%; background: var(--olive); color: var(--surface); }
 .dock a.active .lucide-music-2 { fill: currentColor; }
 @media(max-width:360px) { .schedule-time { font-size: 12px; } }
 .flower-stem { display: none; }
@@ -306,3 +303,13 @@ p { line-height: 1.65; margin: 0; }
 .information-page .flower-stem { display: initial; }
 .schedule-preview { display: block; margin-top: 5px; font-size: 14px; font-weight: 400; }
 .schedule-step[open] .schedule-preview { display: none; }
+
+.map-place-marker { position: absolute; transform: translate(-50%, -100%); display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--surface); z-index: 1; }
+.map-place-pin { display: grid; place-items: center; width: 32px; height: 32px; border: 2px solid var(--surface); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--olive); box-shadow: 0 2px 5px #30352133; }
+.map-place-pin svg { transform: rotate(45deg); }
+.map-place-marker[aria-pressed="true"] { z-index: 2; }
+.map-place-marker[aria-pressed="true"] .map-place-pin { background: var(--gold); color: var(--olive); border-color: var(--olive); }
+.map-place-marker:focus-visible { outline: 3px solid var(--surface); outline-offset: 2px; }
+.map-place-marker:focus-visible .map-place-pin { outline: 2px solid var(--olive); outline-offset: 3px; }
+.place-detail-icon { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--olive); color: var(--surface); }
+@media (hover: hover) { .map-place-marker:hover .map-place-pin { background: var(--gold); color: var(--olive); } }

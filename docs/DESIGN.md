@@ -19,3 +19,7 @@ Les maquettes sont des images de présentation : les cadres de téléphone et ba
 Lint, typage et compilation ; huit tests serveur réussis. Comparaison visuelle des captures mobiles avec les deux maquettes. Contrôles Chromium sur cinq routes aux formats 320×568, 390×844, 844×390 et 1280×800 : aucun débordement horizontal, dock dans la fenêtre, destination active correcte.
 
 Ouverture/fermeture du programme au clavier, accordéons Informations, zoom/réinitialisation et sélection du plan, erreur de code puis connexion avec un compte synthétique. Aucun compte réel utilisé. Les contrôles navigateur ne remplacent pas un essai sur iPhone physique.
+
+## Repères du plan — 0.2.3
+
+Les onze lieux cliquables possèdent un repère permanent avec une icône distincte. Les boutons de 44 pixels conservent leur taille pendant le zoom ; le lieu sélectionné passe en safran et sa fiche reprend la même icône. Les zones de l’illustration restent cliquables à la souris, les repères assurent l’accès clavier et lecteur d’écran sans doubler les arrêts de tabulation.
