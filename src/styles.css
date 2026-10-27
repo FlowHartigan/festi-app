@@ -233,8 +233,9 @@ p { line-height: 1.65; margin: 0; }
 .heading-map { width: 190px; }
 .page-heading h1 { flex: 0 1 auto; }
 .page-heading { justify-content: space-between; }
-.home-wordmark { width: min(calc(100% + 48px), 480px); margin: 0 0 20px; }
-.home-wordmark img { display: block; width: 100%; height: auto; }
+.home-wordmark { width: min(calc(100% + 48px), 480px); margin: 0 0 20px; overflow: clip; }
+/* The visible lettering is 14.5px right of center in the 1305px source. */
+.home-wordmark img { display: block; width: 100%; height: auto; transform: translateX(-1.111111%); }
 .home-couple { text-transform: uppercase; font-size: 21px; letter-spacing: 1.2px; }
 .home-venue span { display: block; }
 .home-venue { margin-top: 24px; font-size: 16px; }
