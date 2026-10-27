@@ -26,7 +26,7 @@ export function MapPage() {
     <div className="map-scroll" tabIndex={0} role="region" aria-label="Plan du festival, agrandissez puis faites défiler pour explorer">
       <div className="map-canvas" style={{ height: zoom * 350, width: `${zoom * 100}%` }}>
         <FestivalVenueMap selectedId={selectedId} onSelect={selectPlace} />
-        {allPlaces.map(place => <MapPlaceMarker key={place.id} id={place.id} name={place.name} x={place.x} y={place.y} selected={selectedId === place.id} onSelect={selectPlace} />)}
+        {allPlaces.filter(place => place.id !== 'lake' && place.id !== 'entrance').map(place => <MapPlaceMarker key={place.id} id={place.id} name={place.name} x={place.x} y={place.y} selected={selectedId === place.id} onSelect={selectPlace} />)}
       </div>
     </div>
     </div>

@@ -22,4 +22,4 @@ Ouverture/fermeture du programme au clavier, accordéons Informations, zoom/réi
 
 ## Repères du plan — 0.2.3
 
-Les onze lieux cliquables possèdent un repère permanent avec une icône distincte. Les boutons de 44 pixels conservent leur taille pendant le zoom ; le lieu sélectionné passe en safran et sa fiche reprend la même icône. Les zones de l’illustration restent cliquables à la souris, les repères assurent l’accès clavier et lecteur d’écran sans doubler les arrêts de tabulation.
+Neuf lieux cliquables possèdent un repère permanent avec une icône distincte. À la demande des mariés (0.2.4), l’étang et l’entrée restent accessibles par leur zone et la liste des lieux, sans repère superposé. Les boutons de 44 pixels conservent leur taille pendant le zoom ; le lieu sélectionné passe en safran et sa fiche reprend la même icône. Les zones de l’illustration restent cliquables à la souris, les repères assurent l’accès clavier et lecteur d’écran sans doubler les arrêts de tabulation.
