@@ -80,3 +80,13 @@ Basculer atomiquement le lien current, redémarrer festi-app et vérifier la san
 - Contrôles après bascule : service actif, santé locale et HTTPS, cinq routes et police locale, intégrité SQLite, 10 migrations et 164 comptes ; empreinte de la page Maestro inchangée.
 - Contrôles Chromium HTTPS : cinq pages mobiles, palette et police chargées, aucun débordement horizontal ni exception JavaScript. Aucun compte réel utilisé.
 - Retour arrière compatible : rétablir atomiquement current vers la release du 17 octobre et redémarrer festi-app ; conserver la base courante et ses réponses.
+### Livraison 0.2.1 — 27 octobre 2026
+
+- Source : tag v0.2.1, commit a04b74e35b535ad8a108a88e4b14363f37c86113, PR #4.
+- Release active : /var/www/festi-app/releases/20261026-0.2.1. Le nom conserve la date de préparation ; la bascule a eu lieu le 27 octobre.
+- Précédente conservée : /var/www/festi-app/releases/20261026-0.2.0.
+- Sauvegarde cohérente vérifiée : /var/backups/festi-app/20261026-0.2.1/festi.sqlite ; configuration protégée et chemin précédent dans le même répertoire root en mode 700.
+- Modules serveur conservés à l’identique après comparaison ; aucune migration ni réimport.
+- Vérifications après bascule : Nginx valide, santé locale et HTTPS, cinq routes, police locale, intégrité SQLite, 164 comptes, 10 migrations et empreinte Maestro inchangée.
+- Chromium en 390×844 : cinq réponses HTTP 200, aucune exception JavaScript ni débordement horizontal, destination active correcte. Aucun compte réel utilisé.
+- Retour arrière : rétablir atomiquement current vers la release 0.2.0 et redémarrer festi-app ; conserver la base courante et ses réponses.
