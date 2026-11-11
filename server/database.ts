@@ -4,6 +4,8 @@ import { dirname, resolve } from 'node:path';
 import { festivalSchema } from '../shared/festival.js';
 import { initialFestival } from './seed.js';
 import { programV2 } from './program-v2.js';
+import { programV11 } from './program-v11.js';
+import { programV12 } from './program-v12.js';
 import { migrateAccounts, migrateSeparateResponses } from './account-database.js';
 import { practicalHours } from './practical-hours.js';
 import { childrenInformation } from './children-information.js';
@@ -120,6 +122,28 @@ export function openDatabase(path = process.env.DATABASE_PATH ?? '.data/festi.sq
       db.exec('COMMIT');
     } catch (error) { db.exec('ROLLBACK'); db.close(); throw error; }
   }
+  db.exec('BEGIN IMMEDIATE');
+  try {
+    if (!db.prepare('SELECT version FROM migrations WHERE version = 11').get()) {
+      const festival = readFestival(db);
+      festival.program = programV11;
+      db.prepare('UPDATE festival_content SET content = ?, updated_at = CURRENT_TIMESTAMP WHERE id = 1')
+        .run(JSON.stringify(festivalSchema.parse(festival)));
+      db.prepare('INSERT INTO migrations (version) VALUES (?)').run(11);
+    }
+    db.exec('COMMIT');
+  } catch (error) { db.exec('ROLLBACK'); db.close(); throw error; }
+  db.exec('BEGIN IMMEDIATE');
+  try {
+    if (!db.prepare('SELECT version FROM migrations WHERE version = 12').get()) {
+      const festival = readFestival(db);
+      festival.program = programV12;
+      db.prepare('UPDATE festival_content SET content = ?, updated_at = CURRENT_TIMESTAMP WHERE id = 1')
+        .run(JSON.stringify(festivalSchema.parse(festival)));
+      db.prepare('INSERT INTO migrations (version) VALUES (?)').run(12);
+    }
+    db.exec('COMMIT');
+  } catch (error) { db.exec('ROLLBACK'); db.close(); throw error; }
   return db;
 }
 

@@ -56,6 +56,7 @@ Les leçons servent de mémoire technique, sans élargir les permissions de l’
 - **Contexte et symptôme :** `npm test` avec Node 24.14 échoue avant le chargement des tests, dans `tsx`, avec `uv_os_get_passwd returned ENOMEM`.
 - **Cause circonscrite :** l’échec dépend de l’environnement d’exécution restreint. La même commande, sans changement de code ni de dépendances, réussit après une exécution hors du bac à sable autorisée par le mécanisme d’approbation. La cause interne Windows précise n’est pas établie ; le message ne démontre pas un manque de mémoire de l’application.
 - **Solution vérifiée :** exécuter la commande de test via le mécanisme d’escalade prévu lorsque celui-ci l’autorise. Les six tests d’intégration, dont ceux des comptes, passent dans ce contexte.
+- **Alternative vérifiée le 11 novembre 2026 :** compiler les tests avec `tsc -p tsconfig.tests.json --noEmit false --outDir dist-server`, puis lancer `node --test dist-server/tests/*.test.js`. Les huit tests passent dans l’environnement restreint sans charger `tsx`.
 - **Prévention :** si cette signature réapparaît avant les tests, distinguer le problème du lanceur des échecs applicatifs. Ne pas réinstaller les dépendances ni changer le code métier sur la seule base de `ENOMEM`. Respecter les décisions d’approbation ; si l’exécution reste bloquée, le signaler.
 
 ### 2026-10-26 — Différences de compilation dues aux fins de ligne Windows

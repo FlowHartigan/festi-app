@@ -49,6 +49,10 @@ La date du mariage est une date civile ; l'affichage utilise `Europe/Paris`. Le 
 
 La migration 10 renomme le repère de 4 h « Fin du son » en « Fin de la musique », sans modifier les autres horaires ni les réponses des invités.
 
+La migration 11 remplace le programme du Line-up par les quinze créneaux confirmés. L’interface suit l’ordre du tableau `program` pour afficher les créneaux après minuit à la suite de la soirée.
+
+La migration 12 précise les titres, descriptions et lieux du programme à partir de `server/program-v12.ts`.
+
 La migration 9 met à jour uniquement la rubrique `lieu` avec une adresse structurée (`location`), partagée avec les nouvelles bases via `server/venue-location.ts`. Adresse vérifiée le 17 octobre 2026 sur [le site officiel du lieu](https://www.lasourceduburon.fr/contact-plan-dacces/) : Domaine de Luc, 15500 Saint-Poncy, France. Le navigateur construit les liens Google Maps, Plans et Waze depuis cette même destination. La carte Google Maps est une iframe publique chargée à la demande du navigateur (`loading="lazy"`), sans clé API ni demande de géolocalisation. Les liens restent utilisables si la carte externe ne charge pas.
 
 Le logo PNG est un rendu du PDF fourni. Les originaux du logo et du plan sont conservés dans `assets`.
