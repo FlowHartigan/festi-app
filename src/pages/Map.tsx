@@ -5,7 +5,9 @@ import { useRef, useState } from 'react';
 import { useFestival } from '../components/Layout';
 import { mapSpaces } from '../components/FestivalMapArtwork';
 import { FestivalFlower } from '../components/FestivalFlower';
-import { List, Minus, Plus, X } from 'lucide-react';
+import { Minus, Plus, X } from 'lucide-react';
+
+const placeOrder = ['stage', 'bar', 'food', 'chill', 'activities', 'photomaton', 'toilets', 'vans', 'parking', 'entrance', 'lake'];
 
 export function MapPage() {
   const lastSelection = useRef<HTMLElement | SVGElement | null>(null);
@@ -16,6 +18,11 @@ export function MapPage() {
   const [zoom, setZoom] = useState(1);
   const allPlaces = [...mapSpaces.map(space => ({ ...space, ...mapPlaceAnchors[space.id], description: places.find(place => place.id === space.id)?.description ?? (space.id === 'stage' ? 'Le lieu du DJ set.' : '') })), ...places.filter(place => !mapSpaces.some(space => space.id === place.id))];
   const selected = allPlaces.find(place => place.id === selectedId);
+  const orderedPlaces = [...allPlaces].sort((a, b) => {
+    const aIndex = placeOrder.indexOf(a.id);
+    const bIndex = placeOrder.indexOf(b.id);
+    return (aIndex === -1 ? placeOrder.length : aIndex) - (bIndex === -1 ? placeOrder.length : bIndex);
+  });
   return <section className="page map-page"><div className="page-heading"><h1><HeadingArtwork kind="map" label="Le plan" /></h1><FestivalFlower /></div><p className="intro">Trouve ton coin de fête.</p>
     <div className="map-explorer">
     <div className="map-toolbar" role="group" aria-label="Zoom du plan">
@@ -30,9 +37,17 @@ export function MapPage() {
       </div>
     </div>
     </div>
-    <div aria-live="polite">{selected && <section className="place-detail"><span className="place-detail-icon"><MapPlaceIcon id={selected.id} size={24} /></span><div><h2>{selected.id === 'stage' ? 'La scène' : selected.name}</h2><p>{selected.description || 'Les informations de cet espace seront ajoutées prochainement.'}</p></div><button aria-label="Fermer les détails du lieu" onClick={closePlace}><X size={20} aria-hidden="true" /></button></section>}</div>
-    <details className="map-places"><summary><List size={20} aria-hidden="true" /> Voir tous les lieux</summary>
-    <ul className="place-list" aria-label="Lieux du festival">{allPlaces.map(place => <li key={place.id}><button onClick={() => selectPlace(place.id)} aria-pressed={selectedId === place.id}>{place.name}</button></li>)}</ul>
-    </details>
+    <section className="map-place-cards" aria-labelledby="map-places-heading">
+      <h2 id="map-places-heading">Les coins du festival</h2>
+      <ul className="map-place-grid">
+        {orderedPlaces.map(place => <li key={place.id}>
+          <button onClick={() => selectPlace(place.id)} aria-pressed={selectedId === place.id} aria-controls="map-place-description">
+            <MapPlaceIcon id={place.id} size={20} />
+            <span>{place.name}</span>
+          </button>
+        </li>)}
+      </ul>
+      <div id="map-place-description" aria-live="polite">{selected && <section className="map-place-description"><div><h3>{selected.name}</h3><p>{selected.description || 'Les informations de cet espace seront ajoutées prochainement.'}</p></div><button aria-label="Fermer les détails du lieu" onClick={closePlace}><X size={20} aria-hidden="true" /></button></section>}</div>
+    </section>
   </section>;
 }

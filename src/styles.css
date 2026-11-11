@@ -310,3 +310,16 @@ p { line-height: 1.65; margin: 0; }
 .map-place-marker:focus-visible .map-place-pin { outline: 2px solid var(--olive); outline-offset: 3px; }
 .place-detail-icon { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--olive); color: var(--surface); }
 @media (hover: hover) { .map-place-marker:hover .map-place-pin { background: var(--gold); color: var(--olive); } }
+
+.map-place-cards { margin-top: 24px; }
+.map-place-cards > h2 { margin-bottom: 16px; font-family: 'Berkshire Swash', Georgia, serif; font-size: 25px; font-weight: 400; color: var(--olive); }
+.map-place-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.map-place-grid li { min-width: 0; }
+.map-place-grid button { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; width: 100%; height: 100%; min-height: 90px; padding: 14px; border: 1px solid var(--line); border-radius: 17px; background: var(--surface); color: var(--olive); font-size: 14px; font-weight: 500; line-height: 1.4; text-align: left; overflow-wrap: anywhere; }
+.map-place-grid button svg { flex-shrink: 0; }
+.map-place-grid button[aria-pressed="true"] { background: var(--olive); border-color: var(--olive); color: var(--cream); }
+.map-place-description { display: flex; align-items: flex-start; gap: 12px; margin-top: 18px; padding-block: 18px; border-block: 1px solid var(--line); }
+.map-place-description > div { flex: 1; min-width: 0; }
+.map-place-description h3 { margin: 0 0 6px; font-size: 17px; }
+.map-place-description p { font-size: 14px; color: var(--muted); }
+.map-place-description button { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border: 0; border-radius: 12px; background: transparent; color: var(--olive); }
