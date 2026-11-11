@@ -8,6 +8,11 @@ import { openDatabase, readFestival } from '../server/database.js';
 import { createApp } from '../server/app.js';
 import { festivalSchema } from '../shared/festival.js';
 
+const lineupTimes = [
+  '16:30', '17:30', '18:00', '18:30', '19:30', '21:30', '22:00', '22:30',
+  '23:00', '00:30', '01:30', '02:30', '02:45', '04:00', '05:00',
+];
+
 test('Les migrations préservent le contenu modifié après un redémarrage', () => {
   const directory = mkdtempSync(join(tmpdir(), 'festi-test-'));
   const path = join(directory, 'festival.sqlite');
@@ -20,16 +25,15 @@ test('Les migrations préservent le contenu modifié après un redémarrage', ()
     content.information.push({ id: 'horaires', title: 'Horaires', body: 'Ancienne présentation des horaires.' });
     content.information = content.information.map(item => item.id === 'lieu' ? { id: 'lieu', title: 'Le lieu', body: 'Ancienne adresse.' } : item);
     db.prepare('UPDATE festival_content SET content = ? WHERE id = 1').run(JSON.stringify(content));
-    db.exec('DELETE FROM migrations WHERE version IN (2, 6, 7, 8, 9)');
+    db.exec('DELETE FROM migrations WHERE version IN (2, 6, 7, 8, 9, 11, 12)');
     db.close();
     db = openDatabase(path);
     assert.equal(readFestival(db).name, 'Festival mis à jour');
-    assert.deepEqual(readFestival(db).program.map(({ time, endTime }) => [time, endTime]), [
-      ['16:30', undefined], ['17:00', '19:00'], ['19:00', '20:00'],
-    ]);
+    const program = readFestival(db).program;
+    assert.deepEqual(program.map(moment => moment.time), lineupTimes);
     db.close();
     db = openDatabase(path);
-    assert.equal(readFestival(db).program.length, 3);
+    assert.deepEqual(readFestival(db).program, program);
     assert.equal(readFestival(db).information.filter(item => item.id === 'horaires').length, 1);
     assert.ok(readFestival(db).information.some(item => item.id === 'lieu'));
     assert.deepEqual(readFestival(db).information.find(item => item.id === 'horaires')?.schedule?.map(moment => moment.time), ['16:30', '04:00', '05:00']);
@@ -43,7 +47,7 @@ test('Les migrations préservent le contenu modifié après un redémarrage', ()
     assert.deepEqual(readFestival(db).information.find(item => item.id === 'lieu')?.location, {
       name: 'La Source du Buron', address: 'Domaine de Luc', town: '15500 Saint-Poncy, France',
     });
-    assert.equal(db.prepare('SELECT count(*) AS total FROM migrations').get()?.total, 10);
+    assert.equal(db.prepare('SELECT count(*) AS total FROM migrations').get()?.total, 12);
     assert.equal(db.prepare('PRAGMA integrity_check').get()?.integrity_check, 'ok');
   } finally {
     db.close();
@@ -67,6 +71,7 @@ test('L’API fournit le contenu validé et refuse les routes d’écriture', as
     assert.equal(response.headers.get('cache-control'), 'no-store');
     const content = festivalSchema.parse(await response.json());
     assert.equal(content.date, '2027-09-04');
+    assert.deepEqual(content.program.map(moment => moment.time), lineupTimes);
     assert.equal(content.program.some(moment => moment.time === '14:30'), false);
     const write = await fetch(`${base}/api/festival`, { method: 'POST' });
     assert.equal(write.status, 404);

@@ -26,13 +26,13 @@ p { line-height: 1.65; margin: 0; }
 .dock a.active { background: #edf0e3; color: var(--olive); font-weight: 650; }
 .information-list p { color: var(--muted); font-size: 15px; }
 .lineup-page { --hour-column: 74px; }
-.lineup-heading { display: flex; align-items: center; gap: 18px; margin-bottom: 16px; }
-.lineup-heading h1 { margin: 0; }
-
-.lineup-day { padding-bottom: 10px; }
-.lineup-day time { font-weight: 600; color: var(--olive); }
-.lineup-day time::first-letter { text-transform: uppercase; }
-.lineup-day > span { font-size: 12px; color: var(--muted); }
+.lineup-heading { margin-inline: -12px; }
+.lineup-heading-art { aspect-ratio: 2172 / 592; overflow: hidden; }
+.lineup-heading img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 .festival-schedule { list-style: none; padding: 0; margin: 30px 0 0; }
 .schedule-row { position: relative; padding-bottom: 24px; }
 .schedule-row::before { content: ""; position: absolute; left: var(--hour-column); top: 0; bottom: 0; width: 1px; background: #b9bea4; pointer-events: none; }
@@ -40,11 +40,13 @@ p { line-height: 1.65; margin: 0; }
 .schedule-summary::-webkit-details-marker { display: none; }
 .schedule-summary::marker { content: ''; }
 .schedule-summary:focus-visible { outline: 3px solid var(--olive); outline-offset: 4px; }
-.schedule-time { padding-top: 25px; padding-right: 8px; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--olive); white-space: nowrap; }
+.schedule-time { display: block; margin-bottom: 4px; font-family: Georgia, serif; font-size: 19.32px; font-weight: 700; font-variant-numeric: tabular-nums; color: #8c570d; white-space: nowrap; }
+.schedule-icon { grid-column: 1; grid-row: 1; align-self: center; justify-self: center; width: min(100%, 58px); aspect-ratio: 1; background: url('/assets/identity/lineup-icons.webp') no-repeat; background-size: 500% 300%; }
 .schedule-end { display: block; margin-top: 3px; font-size: 12px; font-weight: 400; color: var(--muted); }
-.schedule-card { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 76px; margin-left: 16px; padding: 22px 14px; border-radius: 16px; }
+.schedule-card { grid-column: 2; grid-row: 1; position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 76px; margin-left: 16px; padding: 16px 14px; border-radius: 16px; }
 .schedule-card::before { content: ""; position: absolute; left: -21px; top: 30px; width: 9px; height: 9px; background: var(--gold); border: 1px solid var(--cream); border-radius: 50%; }
 .schedule-title { font-size: 16px; line-height: 1.4; font-weight: 600; overflow-wrap: anywhere; }
+.schedule-credit { color: #a13e2d; }
 .schedule-chevron { flex-shrink: 0; color: var(--olive); transition: transform 180ms ease; }
 .schedule-step[open] .schedule-chevron { transform: rotate(180deg); }
 .schedule-step[open] .schedule-card { background: #f8efd9; border-radius: 16px 16px 0 0; }
@@ -68,6 +70,7 @@ p { line-height: 1.65; margin: 0; }
 .information-chevron { transition: transform 180ms ease; }
 .information-category[open] .information-chevron { transform: rotate(180deg); }
 .information-content { padding: 0 0 24px; }
+.dress-code-moodboard { display: block; width: 100%; height: auto; margin-top: 16px; border-radius: 12px; }
 .information-item + .information-item { margin-top: 20px; }
 .information-item h3 { margin: 0 0 8px; font-size: 15px; font-weight: 600; }
 .information-item p { white-space: pre-line; }
@@ -80,6 +83,8 @@ p { line-height: 1.65; margin: 0; }
 .information-hours { padding: 0; margin: 0; list-style: none; }
 .information-hours li { display: grid; grid-template-columns: minmax(96px, auto) 1fr; gap: 16px; padding-block: 10px; font-size: 14px; line-height: 1.6; }
 .information-hours li > span:first-child { color: var(--olive); font-weight: 600; font-variant-numeric: tabular-nums; }
+.information-hours-moment p { margin-top: 4px; font-size: 14px; }
+.information-hours-moment .schedule-location { display: flex; align-items: flex-start; gap: 6px; }
 .information-hours + .information-item { margin-top: 20px; }
 .practical-hours { margin: 0; padding: 4px 18px; background: #f7f4ec; border-radius: 16px; }
 .practical-hours > div { display: grid; grid-template-columns: 82px minmax(0, 1fr); align-items: baseline; gap: 14px; padding-block: 15px; }
@@ -260,9 +265,7 @@ p { line-height: 1.65; margin: 0; }
 .account-login > .account-hint { margin-top: 24px; text-align: center; }
 .account-primary { min-height: 58px; font-size: 17px; }
 .lineup-page { --hour-column: 88px; }
-.lineup-day time { font-weight: 400; }
 .schedule-end { display: inline; margin-left: 4px; font-size: inherit; }
-.schedule-time { font-size: 12px; }
 .schedule-row { padding-bottom: 30px; }
 .schedule-card { padding-inline: 12px; margin-left: 14px; }
 .schedule-card::before { left: -19px; }
@@ -285,7 +288,6 @@ p { line-height: 1.65; margin: 0; }
  .home-couple { font-size: 18px; }
  .map-explorer { margin-inline: -18px; }
  .lineup-page { --hour-column: 78px; }
- .schedule-time { font-size: 11px; }
 }
 @media (min-width: 700px) {
  .map-explorer { margin-inline: 0; }
@@ -293,16 +295,12 @@ p { line-height: 1.65; margin: 0; }
 }
 .map-page .page-heading { justify-content: flex-start; }
 .map-toolbar output { white-space: nowrap; }
-.schedule-time { font-size: 14px; }
 .schedule-title { font-size: 17px; }
-.lineup-day { font-size: 18px; }
 .dock a.active .lucide-music-2 { fill: currentColor; }
-@media(max-width:360px) { .schedule-time { font-size: 12px; } }
+@media(max-width:360px) { .schedule-time { font-size: 16.56px; } }
 .flower-stem { display: none; }
 .information-page .festival-flower { overflow: visible; }
 .information-page .flower-stem { display: initial; }
-.schedule-preview { display: block; margin-top: 5px; font-size: 14px; font-weight: 400; }
-.schedule-step[open] .schedule-preview { display: none; }
 
 .map-place-marker { position: absolute; transform: translate(-50%, -100%); display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--surface); z-index: 1; }
 .map-place-pin { display: grid; place-items: center; width: 32px; height: 32px; border: 2px solid var(--surface); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--olive); box-shadow: 0 2px 5px #30352133; }

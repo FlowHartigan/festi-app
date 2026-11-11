@@ -63,15 +63,7 @@ Le traitement visuel doit évoquer un programme de festival. Il n’impose pas q
 
 ### Informations à compléter
 
-Programme public confirmé :
-
-- 16 h 30 : début des festivités à La Source du Buron.
-- 17 h à 19 h : activités, avec des jeux en bois dans l’espace activités.
-- 19 h à 20 h : DJ set années 2000 sur la scène.
-
-- La liste des moments à afficher aux invités.
-- Les horaires, lieux et descriptions de chaque moment.
-- La présentation éventuelle des différentes catégories de moments.
+Le programme public compte quinze créneaux, de l’ouverture à 16 h 30 à la fermeture du site à 5 h le lendemain. Les horaires et les libellés affichés sont dans [le programme du Line-up](../server/program-v11.ts). Les noms des DJ signalés comme « à annoncer » restent à compléter.
 
 Respecter les repères confirmés du skill mariage. La cérémonie civile à Issoire est en comité restreint : ne pas l’afficher comme une invitation ouverte à tous. Ne pas inventer d’animations ni d’horaires pour compléter la page.
 
