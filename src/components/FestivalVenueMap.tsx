@@ -3,6 +3,16 @@ const zones = [{"id":"activities","path":"M155 224L333 201 351 353 172 375Z"},{"
 export function FestivalVenueMap({ selectedId, onSelect }: { selectedId: string | null; onSelect: (id: MapSpaceId) => void }) {
  return <svg className="festival-venue-map" viewBox="0 0 1536 1024" preserveAspectRatio="none" role="group" aria-label="Plan illustré du festival">
  <image href="/assets/identity/venue-map.webp" width="1536" height="1024" />
+ <defs>
+   <radialGradient id="venue-stage-sign">
+     <stop stopColor="#ffedce" />
+     <stop offset="1" stopColor="#e7b483" />
+   </radialGradient>
+ </defs>
+ <g aria-hidden="true" transform="translate(424 641) rotate(-3)" pointerEvents="none">
+   <path d="M-109 -21 Q0 -25 109 -21 L108 22 Q0 18 -108 22 Z" fill="url(#venue-stage-sign)" stroke="#4c3528" strokeWidth="2.5" />
+   <text y="7" textAnchor="middle" fill="#30271e" fontFamily="'Arial Narrow', 'Trebuchet MS', sans-serif" fontSize="22" textLength="190" lengthAdjust="spacingAndGlyphs">CHAPITEAU PRINCIPAL</text>
+ </g>
  {zones.map(zone => <g key={zone.id} className={'map-zone' + (selectedId === zone.id ? ' is-selected' : '')} aria-hidden="true" onClick={() => onSelect(zone.id as MapSpaceId)}><path className="map-zone-hit" d={zone.path} /></g>)}
  </svg>;
 }

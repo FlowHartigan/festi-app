@@ -26,13 +26,7 @@ p { line-height: 1.65; margin: 0; }
 .dock a.active { background: #edf0e3; color: var(--olive); font-weight: 650; }
 .information-list p { color: var(--muted); font-size: 15px; }
 .lineup-page { --hour-column: 74px; }
-.lineup-heading { margin-inline: -12px; }
-.lineup-heading-art { aspect-ratio: 2172 / 592; overflow: hidden; }
-.lineup-heading img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+.lineup-page .page-heading { justify-content: flex-start; }
 .festival-schedule { list-style: none; padding: 0; margin: 30px 0 0; }
 .schedule-row { position: relative; padding-bottom: 24px; }
 .schedule-row::before { content: ""; position: absolute; left: var(--hour-column); top: 0; bottom: 0; width: 1px; background: #b9bea4; pointer-events: none; }
@@ -147,8 +141,8 @@ p { line-height: 1.65; margin: 0; }
 .account-menu-button .account-menu-icon { color: var(--gold); }
 .account-link { box-sizing: border-box; text-align: center; text-decoration: none; }
 @media (hover: hover) { .account-menu-button:hover { border-color: var(--olive); background: #f0f3e9; } }
-.account-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; color: var(--olive); }
-.account-heading h1 { margin: 0; }
+.account-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; color: var(--olive); }
+.account-heading h1 { min-width: 0; margin: 0; }
 .account-login { padding-top: 20px; }
 .account-key { color: var(--olive); margin-bottom: 16px; }
 .account-login label { display: block; margin-top: 34px; font-weight: 500; }
@@ -212,8 +206,8 @@ p { line-height: 1.65; margin: 0; }
 .account-code::placeholder { color: #797c6e; opacity: 1; }
 @media (max-width: 360px) {
  .app-shell { padding-inline: 18px; }
- .page-heading { gap: 10px; }
- .page-heading .festival-flower { width: 28px; height: 28px; }
+ .page-heading, .account-heading { gap: 10px; }
+ .page-heading .festival-flower, .account-heading .festival-flower { width: 28px; height: 28px; }
  .information-list { padding-inline: 12px; }
  .information-summary h2 { font-size: 16px; }
  .information-category-label { gap: 10px; }
@@ -304,8 +298,8 @@ p { line-height: 1.65; margin: 0; }
 .dock a.active .lucide-music-2 { fill: currentColor; }
 @media(max-width:360px) { .schedule-time { font-size: 16.56px; } }
 .flower-stem { display: none; }
-.information-page .festival-flower { overflow: visible; }
-.information-page .flower-stem { display: initial; }
+.information-page .festival-flower, .account-heading .festival-flower { overflow: visible; }
+.information-page .flower-stem, .account-heading .flower-stem { display: initial; }
 
 .map-place-marker { position: absolute; transform: translate(-50%, -100%); display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--surface); z-index: 1; }
 .map-place-pin { display: grid; place-items: center; width: 32px; height: 32px; border: 2px solid var(--surface); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--olive); box-shadow: 0 2px 5px #30352133; }
@@ -316,3 +310,16 @@ p { line-height: 1.65; margin: 0; }
 .map-place-marker:focus-visible .map-place-pin { outline: 2px solid var(--olive); outline-offset: 3px; }
 .place-detail-icon { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--olive); color: var(--surface); }
 @media (hover: hover) { .map-place-marker:hover .map-place-pin { background: var(--gold); color: var(--olive); } }
+
+.map-place-cards { margin-top: 24px; }
+.map-place-cards > h2 { margin-bottom: 16px; font-family: 'Berkshire Swash', Georgia, serif; font-size: 25px; font-weight: 400; color: var(--olive); }
+.map-place-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.map-place-grid li { min-width: 0; }
+.map-place-grid button { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; width: 100%; height: 100%; min-height: 90px; padding: 14px; border: 1px solid var(--line); border-radius: 17px; background: var(--surface); color: var(--olive); font-size: 14px; font-weight: 500; line-height: 1.4; text-align: left; overflow-wrap: anywhere; }
+.map-place-grid button svg { flex-shrink: 0; }
+.map-place-grid button[aria-pressed="true"] { background: var(--olive); border-color: var(--olive); color: var(--cream); }
+.map-place-description { display: flex; align-items: flex-start; gap: 12px; margin-top: 18px; padding-block: 18px; border-block: 1px solid var(--line); }
+.map-place-description > div { flex: 1; min-width: 0; }
+.map-place-description h3 { margin: 0 0 6px; font-size: 17px; }
+.map-place-description p { font-size: 14px; color: var(--muted); }
+.map-place-description button { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border: 0; border-radius: 12px; background: transparent; color: var(--olive); }

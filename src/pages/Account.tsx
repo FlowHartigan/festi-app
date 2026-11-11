@@ -1,4 +1,5 @@
 import { HeadingArtwork } from '../components/HeadingArtwork';
+import { FestivalFlower } from '../components/FestivalFlower';
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { KeyRound, Tent, Check, CalendarCheck, ChevronRight, ArrowLeft } from 'lucide-react';
@@ -113,7 +114,10 @@ export function Account() {
   const answered = account !== null && (section === 'presence' ? account.attending !== null : account.van !== null);
   return <section className="page account-page">
     {account && section && <Link className="account-back" to="/compte" onClick={openSection}><ArrowLeft size={18} aria-hidden="true" /> Mon compte</Link>}
-    <div className="account-heading"><h1 ref={titleRef} tabIndex={-1}>{account && section ? section === 'presence' ? 'Ma présence' : 'Ma nuit en van' : <HeadingArtwork kind="account" label="Ton espace" />}</h1></div>
+    <div className="account-heading">
+      <h1 ref={titleRef} tabIndex={-1}>{account && section ? section === 'presence' ? 'Ma présence' : 'Ma nuit en van' : <HeadingArtwork kind="account" label="Ton espace" />}</h1>
+      {!(account && section) && <FestivalFlower />}
+    </div>
     {loading ? <p role="status">Chargement de votre espace…</p> : loadFailed ? <>
       <p role="alert" className="account-error">{error}</p>
       <button className="action" onClick={() => { setLoading(true); setReload(value => value + 1); }}>Réessayer</button>

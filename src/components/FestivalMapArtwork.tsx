@@ -4,7 +4,7 @@ import { memo, type ReactNode } from 'react';
 export const mapSpaces = [
   { id: 'activities', name: 'Activités' }, { id: 'chill', name: 'Coin chill' },
   { id: 'photomaton', name: 'Photomaton' }, { id: 'food', name: 'Stands nourriture' },
-  { id: 'toilets', name: 'Toilettes' }, { id: 'stage', name: 'Scène' },
+  { id: 'toilets', name: 'Toilettes' }, { id: 'stage', name: 'Chapiteau principal' },
   { id: 'bar', name: 'Bar' }, { id: 'vans', name: 'Espace van dodo' },
   { id: 'parking', name: 'Parking' }, { id: 'entrance', name: 'Entrée' },
   { id: 'lake', name: 'Étang' },
@@ -169,7 +169,7 @@ export function FestivalMapArtwork({ selectedId, onSelect }: { selectedId: strin
         <path d="M437 477v51" stroke="#514333" strokeWidth="2" /><circle cx="437" cy="538" r="14" fill="#dad8c6" stroke="#44443d" strokeWidth="2" /><path d="M425 532h24m-25 6h27m-24 6h21m-15-19v26m7-26v26" stroke="#888c82" strokeWidth="1.4" />
         {[310,510].map(x=><g key={x} fill="#42433e" stroke="#292e2a" strokeWidth="2"><rect x={x} y="576" width="19" height="27" /><rect x={x-6} y="602" width="32" height="23" />{[584,595,613].map(y=><circle key={y} cx={x+9} cy={y} r={y===613?7:5} fill="#252e2d" stroke="#7b7861" />)}</g>)}
         {[230,337,490,590].map((x,i)=><g key={x} transform={`translate(${x} ${610+i%2*27})`} fill="#9a8e52" stroke="#4e482f" strokeWidth="2"><path d="M-19-8l32-4 11 9-35 6Z M-12 5v7m31-12v9" /><path d="M-19-8v13l7 7 35-9V-3" fill="none" /><path d="M-10-9v17M0-9v14M12-11V4" stroke="#c0a468" /></g>)}
-        <Sign x={371} y={626} width={104} rotate={-3}>SCÈNE</Sign>
+        <Sign x={345} y={626} width={175} rotate={-3}>CHAPITEAU PRINCIPAL</Sign>
       </Zone>
       <Zone selectedId={selectedId} onSelect={onSelect} id="bar">
         <path className="map-zone-hit" d="M653 376L930 378 953 571 650 588Z" />

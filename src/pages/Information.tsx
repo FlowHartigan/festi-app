@@ -4,15 +4,16 @@ import { useFestival } from '../components/Layout';
 import { VenueLocation } from '../components/VenueLocation';
 import { Link } from 'react-router-dom';
 import { CateringInstagramLink, isDanceTime, ProgramMomentDetails, ProgramMomentTitle } from '../components/ProgramMoment';
-import { UsersRound, BedDouble, ChevronDown, Clock, ExternalLink, Info, MapPin, Shirt, Tent, Utensils } from 'lucide-react';
+import { UsersRound, BedDouble, CalendarCheck, ChevronDown, Clock, ExternalLink, Info, MapPin, Shirt, Tent, Utensils } from 'lucide-react';
 
 const categories = [
   { id: 'horaires', title: 'Horaires', icon: Clock, itemIds: ['horaires'] },
+  { id: 'confirmation', title: 'Comment confirmer ma venue ?', icon: CalendarCheck, itemIds: [] },
+  { id: 'dress-code', title: 'Comment on s’habille ?', icon: Shirt, itemIds: ['dress-code', 'moodboard'] },
   { id: 'petits-bouts', title: 'Petits bouts et accompagnants', icon: UsersRound, itemIds: ['petits-bouts', 'enfants'] },
   { id: 'restauration', title: 'Restauration', icon: Utensils, itemIds: ['restauration'] },
   { id: 'hebergement', title: 'Hébergement', icon: BedDouble, itemIds: ['hebergement', 'van', 'hebergements-proximite'] },
   { id: 'localisation', title: 'Localisation', icon: MapPin, itemIds: ['localisation', 'lieu'] },
-  { id: 'dress-code', title: 'Comment on s’habille ?', icon: Shirt, itemIds: ['dress-code', 'moodboard'] },
   { id: 'divers', title: 'Infos divers', icon: Info, itemIds: ['divers', 'esprit'] },
 ];
 
@@ -36,6 +37,10 @@ export function Information() {
       return <details key={category.id} className="information-category">
         <summary className="information-summary"><h2><span className="information-category-label"><Icon className="information-category-icon" size={23} strokeWidth={1.7} aria-hidden="true" />{category.title}</span><ChevronDown className="information-chevron" size={20} aria-hidden="true" /></h2></summary>
         <div className="information-content">
+          {category.id === 'confirmation' && <div className="information-item">
+            <p>Retrouve ton code personnel à 4 chiffres sur la <strong>face B du vinyle</strong> de ton invitation. S’il y a plusieurs codes sur la même invitation, chacun répond avec le sien.</p>
+            <p>Entre ton code dans <Link to="/compte">ton espace Compte</Link>, puis ouvre « Ma présence ». Indique si tu viens et enregistre ta réponse.</p>
+          </div>}
           {category.id === 'restauration' && <div className="information-item">
             <p>La Boîte à Rêve s’occupe de la restauration et vous proposera plusieurs petits stands pour manger au gré de vos envies.</p>
             <p><CateringInstagramLink /></p>
@@ -73,7 +78,7 @@ export function Information() {
             <p><strong>La seule règle : le blanc de la tête aux pieds est réservé à la mariée.</strong></p>
             <img className="dress-code-moodboard" src="/assets/identity/dress-code-moodboard.png" width="1024" height="1536" loading="lazy" alt="Idées de tenues pour Once Upon a Fest : costumes sable et bordeaux, chemises en lin, combinaison terracotta, robe fleurie et accessoires de festival." />
           </div>}
-          {!showProgram && items.length === 0 && !['restauration', 'petits-bouts', 'dress-code'].includes(category.id) && <p>Les informations de cette rubrique seront précisées prochainement.</p>}
+          {!showProgram && items.length === 0 && !['confirmation', 'restauration', 'petits-bouts', 'dress-code'].includes(category.id) && <p>Les informations de cette rubrique seront précisées prochainement.</p>}
         </div>
       </details>;
     })}</div>
