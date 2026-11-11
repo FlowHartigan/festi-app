@@ -244,6 +244,9 @@ p { line-height: 1.65; margin: 0; }
 .home-couple { text-transform: uppercase; font-size: 21px; letter-spacing: 1.2px; }
 .home-venue span { display: block; }
 .home-venue { margin-top: 24px; font-size: 16px; }
+.home-info-link { display: flex; align-items: center; gap: 10px; min-height: 48px; width: min(100%, 230px); margin-top: 22px; padding: 0 15px; border-radius: 15px; background: var(--olive); color: var(--cream); font-size: 15px; font-weight: 600; text-decoration: none; text-align: left; }
+.home-info-link svg { flex-shrink: 0; }
+.home-info-link svg:last-child { margin-left: auto; }
 .home-divider { margin-block: 25px 22px; }
 .home-date { font-size: 22px; }
 .home-date span { font-size: 18px; }

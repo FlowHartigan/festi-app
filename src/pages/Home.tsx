@@ -1,4 +1,5 @@
-import { Heart } from 'lucide-react';
+import { ChevronRight, Heart, Info } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useFestival } from '../components/Layout';
 
 export function Home() {
@@ -13,5 +14,10 @@ export function Home() {
     <div className="home-divider" aria-hidden="true"><Heart size={19} fill="currentColor" strokeWidth={0} /></div>
     <time className="home-date" dateTime={festival.date}><span>{weekday}</span>{date}</time>
     <p className="home-venue">{festival.venue.split(' · ').map(part => <span key={part}>{part}</span>)}</p>
+    <Link className="home-info-link" to="/informations">
+      <Info size={18} aria-hidden="true" />
+      <span>Infos importantes</span>
+      <ChevronRight size={19} aria-hidden="true" />
+    </Link>
   </section>;
 }
