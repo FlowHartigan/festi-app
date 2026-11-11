@@ -123,7 +123,7 @@ L’accueil du compte propose deux boutons distincts : « Ma présence » et « 
 
 Les réponses sont modifiables et persistantes. Une absence implique l’absence de couchage en van. Tant qu’un invité n’a pas enregistré sa réponse, il reste « sans réponse ». Le choix du van indique une intention de couchage, sans promettre une réservation ni une capacité qui n’a pas été définie. L’organisateur peut récupérer les réponses par export local.
 
-Un espace d’administration web, les notifications, le mode hors ligne et l’installation sur l’écran d’accueil restent des décisions distinctes.
+Le tableau de bord organisateur permet de consulter les réponses et leurs totaux, de confirmer la présence ou l’absence d’un invité et de remettre ses choix à l’état « sans réponse ». Les notifications, le mode hors ligne et l’installation sur l’écran d’accueil restent des décisions distinctes.
 
 La base de données et l’hébergement Linux font partie du cadre technique existant. Le choix des données à stocker et leur mode de mise à jour se fera à partir du contenu et des besoins de gestion réellement définis.
 

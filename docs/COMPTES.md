@@ -32,6 +32,16 @@ En production, après compilation, exécuter `node --env-file=/chemin/config.env
 
 ## Récupérer les réponses
 
+### Tableau de bord organisateur
+
+Dans la liste, **Confirmer la présence** et **Marquer absent** modifient la réponse enregistrée de l’invité. Marquer une absence annule le couchage en van. Si l’invité repasse ensuite présent, son choix de van repasse en attente. **Réinitialiser** remet les deux choix sans réponse et efface la date de dernière réponse. L’invité peut consulter et modifier la réponse dans son compte.
+
+Ouvrir `/organisateur` sur le site du mariage. La page affiche les réponses enregistrées, les totaux, les réponses en attente et une recherche par nom. Utiliser **Actualiser** pour relire les réponses et **Verrouiller** pour fermer la consultation.
+
+Pour activer l’accès, enregistrer un code dédié à quatre chiffres dans `ORGANIZER_KEY` dans le fichier privé du service (ou dans `.env` en local), puis redémarrer l’API. Cinq codes incorrects bloquent l’accès par code jusqu’à la fin de la fenêtre de 24 heures, qui démarre au premier échec. Le compteur est global et persiste en SQLite. Une clé longue est aussi prise en charge, générée avec `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`. Utiliser le site HTTPS en production. L’API vérifie la clé à chaque lecture et le tableau de bord la conserve uniquement en mémoire jusqu’au verrouillage ou à la fermeture de la page.
+
+### Export CSV
+
 ```sh
 npm run guests:export
 # Ou après compilation, avec la configuration de production :

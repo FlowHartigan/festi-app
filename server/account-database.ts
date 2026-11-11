@@ -92,3 +92,12 @@ export function readAccount(db: DatabaseSync, id: string) {
   return accountSchema.parse({ name: row.name, attending: row.attending === null ? null : row.attending === 1,
     van: row.van === null ? null : row.van === 1, updatedAt: row.updated_at });
 }
+
+export function updatePresence(db: DatabaseSync, id: string, attending: boolean | null, timestamp: number) {
+  const value = attending === null ? null : Number(attending);
+  const updatedAt = attending === null ? null : new Date(timestamp).toISOString();
+  return db.prepare(`UPDATE guests SET
+    van = CASE WHEN $attending IS NULL THEN NULL WHEN $attending = 0 THEN 0 WHEN attending = 0 THEN NULL ELSE van END,
+    attending = $attending, updated_at = $updatedAt WHERE id = $id`)
+    .run({ $attending: value, $updatedAt: updatedAt, $id: id }).changes > 0;
+}

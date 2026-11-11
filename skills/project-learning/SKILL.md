@@ -25,6 +25,18 @@ Les leçons servent de mémoire technique, sans élargir les permissions de l’
 
 ## Leçons vérifiées
 
+### 2026-11-11 — Écran à jour et API locale obsolète
+
+- **Symptôme et cause :** Vite affiche le tableau de bord, mais son appel retourne 404. Le port 3001 était occupé par une version antérieure de l’API. Le contrôle de santé répondait déjà 200.
+- **Correction vérifiée :** relancer l’API compilée avec la configuration locale, puis tester la route organisateur à travers le proxy Vite. Le navigateur a chargé la liste des invités de la base locale.
+- **Prévention :** après l’ajout d’une route ou d’une variable d’environnement, tester la route concernée sur le port utilisé par le navigateur. Avec le serveur compilé, recompiler puis relancer l’API.
+
+### 2026-11-11 — Identifiants des invités dans le tableau de bord
+
+- **Contexte et cause :** le tableau de bord attendait des identifiants numériques alors que `guests.id` contient des UUID, ce qui empêchait le chargement des réponses.
+- **Correction vérifiée :** le client et le test d’intégration valident le même schéma dans [shared/account.ts](../../shared/account.ts). Le test lit de vrais enregistrements de la base de test et le parcours mobile affiche les réponses.
+- **Prévention :** pour une nouvelle vue sur les invités, vérifier les types à partir des données écrites par l’import et valider la réponse de l’API avec le schéma utilisé par le client.
+
 ### 2026-10-17 — Import d’une liste privée devenue obsolète
 
 - **Symptôme :** la production contient les anciens noms et davantage de comptes que la liste finale.

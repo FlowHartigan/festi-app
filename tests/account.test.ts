@@ -7,17 +7,17 @@ import { join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import { openDatabase } from '../server/database.js';
 import { createApp } from '../server/app.js';
-import { accountSchema } from '../shared/account.js';
+import { accountSchema, organizerResponsesSchema } from '../shared/account.js';
 import { importGuests, migrateAccounts, migrateSeparateResponses, privateHash, readAccount } from '../server/account-database.js';
 
 const secret = 'fictional-account-test-secret-with-no-real-data';
 const guests = [{ name: 'Invité Alpha', code: '0123' }, { name: 'Invité Bêta', code: '4567' }];
 
-async function fixture(path = ':memory:', secureCookies = false) {
+async function fixture(path = ':memory:', secureCookies = false, organizerKey = '') {
   let time = Date.now();
   const db = openDatabase(path);
   importGuests(db, guests, secret);
-  const server = createApp(db, { secret, secureCookies, now: () => time }).listen(0, '127.0.0.1');
+  const server = createApp(db, { secret, secureCookies, now: () => time }, organizerKey).listen(0, '127.0.0.1');
   await once(server, 'listening');
   const address = server.address();
   assert.ok(address && typeof address !== 'string');
@@ -25,10 +25,83 @@ async function fixture(path = ':memory:', secureCookies = false) {
   const request = (path: string, method = 'GET', body?: unknown, cookie = '', headers: Record<string, string> = {}) =>
     fetch(`${base}/api/account${path}`, { method, headers: { 'Content-Type': 'application/json', 'X-Account-Request': '1', Cookie: cookie, ...headers },
       body: body === undefined ? undefined : JSON.stringify(body) });
-  return { db, request, advance: (ms: number) => { time += ms; }, close: async () => {
+  return { db, base, request, advance: (ms: number) => { time += ms; }, close: async () => {
     await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())); db.close();
   } };
 }
+
+test('Organisateur : accès privé aux choix enregistrés et aux invités sans réponse', async () => {
+  const key = 'a'.repeat(64);
+  const f = await fixture(':memory:', false, key);
+  try {
+    const url = `${f.base}/api/organizer/responses`;
+    const login = await f.request('/login', 'POST', { code: guests[0].code });
+    const cookie = login.headers.get('set-cookie')!.split(';')[0];
+    const saved = await f.request('/presence', 'PUT', { attending: true }, cookie);
+    assert.equal(saved.status, 200);
+    assert.equal((await fetch(url, { headers: { Cookie: cookie } })).status, 401);
+    assert.equal((await fetch(url, { headers: { Authorization: `Bearer ${'b'.repeat(64)}` } })).status, 401);
+    const response = await fetch(url, { headers: { Authorization: `Bearer ${key}` } });
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
+    const rows = organizerResponsesSchema.parse(await response.json());
+    assert.notEqual(rows[0].id, rows[1].id);
+    assert.deepEqual(rows.map(row => accountSchema.parse(row)), [
+      { name: guests[0].name, attending: true, van: null, updatedAt: accountSchema.parse(await saved.json()).updatedAt },
+      { name: guests[1].name, attending: null, van: null, updatedAt: null },
+    ]);
+  } finally { await f.close(); }
+});
+
+test('Organisateur : cinq codes incorrects bloquent le code pendant 24 heures', async () => {
+  const f = await fixture(':memory:', false, '7621');
+  const request = (code: string) => fetch(`${f.base}/api/organizer/responses`, {
+    headers: { Authorization: `Bearer ${code}` },
+  });
+  try {
+    assert.equal((await request('7621')).status, 200);
+    for (let attempt = 0; attempt < 5; attempt++) {
+      assert.equal((await request('0000')).status, 401);
+    }
+    const blocked = await request('7621');
+    assert.equal(blocked.status, 429);
+    assert.equal(blocked.headers.get('retry-after'), '86400');
+    f.advance(86400 * 1000);
+    assert.equal((await request('7621')).status, 200);
+  } finally { await f.close(); }
+});
+
+test('Organisateur : modifier la présence met à jour le compte et le choix de van', async () => {
+  const key = 'c'.repeat(64);
+  const f = await fixture(':memory:', false, key);
+  try {
+    const login = await f.request('/login', 'POST', { code: guests[0].code });
+    const cookie = login.headers.get('set-cookie')!.split(';')[0];
+    assert.equal((await f.request('/response', 'PUT', { attending: true, van: true }, cookie)).status, 200);
+    const id = f.db.prepare('SELECT id FROM guests WHERE name = ?').get(guests[0].name)?.id;
+    const put = (target: unknown, attending: unknown, organizerKey?: string) => fetch(
+      `${f.base}/api/organizer/responses/${target}/presence`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', Cookie: cookie, ...(organizerKey && { Authorization: `Bearer ${organizerKey}` }) },
+        body: JSON.stringify({ attending }),
+      },
+    );
+    assert.equal((await put(id, false)).status, 401);
+    assert.equal((await f.request('/presence', 'PUT', { attending: null }, cookie)).status, 400);
+    assert.equal((await put(id, 'non', key)).status, 400);
+    assert.equal((await put('63b8b318-3b97-4a83-a9f2-1a5374b23aac', false, key)).status, 404);
+    for (const [attending, van] of [[true, true], [false, false], [true, null], [null, null]] as const) {
+      const response = await put(id, attending, key);
+      assert.equal(response.status, 200);
+      const account = accountSchema.parse(await response.json());
+      assert.equal(account.attending, attending);
+      assert.equal(account.van, van);
+      if (attending === null) assert.equal(account.updatedAt, null);
+      assert.deepEqual(await (await f.request('', 'GET', undefined, cookie)).json(), account);
+    }
+  } finally { await f.close(); }
+});
 
 test('Compte : code avec zéro initial, session, réponses isolées, modification et déconnexion', async () => {
   const f = await fixture();
