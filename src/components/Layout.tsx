@@ -14,7 +14,11 @@ const destinations = [
 export function Layout() {
   const festival = useLoaderData() as Festival;
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); document.getElementById('main')?.focus(); }, [pathname]);
+  useEffect(() => {
+    const main = document.getElementById('main');
+    main?.scrollTo(0, 0);
+    main?.focus({ preventScroll: true });
+  }, [pathname]);
   return <div className="app-shell">
     <a className="skip-link" href="#main">Aller au contenu</a>
     <main id="main" tabIndex={-1}><Outlet context={festival} /></main>

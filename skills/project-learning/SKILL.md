@@ -72,3 +72,10 @@ Les leçons servent de mémoire technique, sans élargir les permissions de l’
 - **Cause :** substitution du lettrage et des illustrations par une police et des motifs simplifiés ; contrôles de fonctionnement insuffisants pour juger les proportions.
 - **Correction vérifiée :** reprise des graphismes, de la hiérarchie, du dock et des dispositions, avec captures des cinq pages confrontées aux maquettes.
 - **Prévention :** comparer explicitement chaque écran rendu à sa référence avant publication. Une validation du typage, des interactions et de la palette ne démontre pas la fidélité visuelle. Signaler les limites des sources raster et ne pas promettre une identité pixel par pixel non mesurée.
+
+### 2026-11-11 — Contenu masqué par le dock
+
+- Cause : le dock fixe recouvrait le contenu pendant le défilement, malgré la marge en fin de page.
+- Correction : grille de hauteur 100dvh avec une zone principale défilante et une ligne réservée au dock. La navigation remet le défilement de main à zéro.
+- Vérification : Chromium, cinq routes en 390×844, 320×568 et 844×390, sans chevauchement ni débordement horizontal ; retour en haut au changement d’onglet.
+- Prévention : contrôler le rectangle visible du contenu par rapport au dock à différentes positions de défilement, et adapter la remise à zéro au conteneur qui défile.

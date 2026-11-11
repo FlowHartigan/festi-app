@@ -6,7 +6,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; cursor: pointer; }
 a { color: inherit; }
 button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--olive); outline-offset: 5px; }
-.app-shell { max-width: 800px; margin-inline: auto; padding: env(safe-area-inset-top) 24px calc(104px + var(--dock-gap) + env(safe-area-inset-bottom, 0px)); }
+.app-shell { display: grid; grid-template-rows: minmax(0, 1fr) auto; height: 100dvh; max-width: 800px; margin-inline: auto; padding: env(safe-area-inset-top) 0 calc(var(--dock-gap) + env(safe-area-inset-bottom, 0px)); }
+.app-shell > main { min-height: 0; overflow-y: auto; padding-inline: 24px; scroll-padding-block: 24px; }
 
 #main:focus { outline: none; }
 h1 { font-family: 'Berkshire Swash', Georgia, serif; color: var(--olive); font-size: clamp(34px, 8vw, 46px); line-height: 1.2; font-weight: 400; letter-spacing: -.8px; margin: 0 0 16px; overflow-wrap: anywhere; }
@@ -21,7 +22,7 @@ p { line-height: 1.65; margin: 0; }
 
 .home-venue { margin-top: 22px; max-width: 25ch; font-size: 15px; color: var(--muted); text-wrap: balance; }
 /* Leave a 24px gap above the safe area, using the same spacing at the sides. */
-.dock { position: fixed; bottom: calc(var(--dock-gap) + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); display: flex; width: min(calc(100% - 2 * var(--dock-gap)), 440px); padding: 7px; border-radius: 28px; background: #fffdf7f5; border: 1px solid #eee7d6; box-shadow: 0 6px 24px #35401e0b; backdrop-filter: blur(16px); z-index: 10; }
+.dock { position: relative; justify-self: center; display: flex; width: min(calc(100% - 2 * var(--dock-gap)), 440px); margin-top: 12px; padding: 7px; border-radius: 28px; background: #fffdf7f5; border: 1px solid #eee7d6; box-shadow: 0 6px 24px #35401e0b; backdrop-filter: blur(16px); z-index: 10; }
 .dock a { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-height: 60px; border-radius: 20px; text-decoration: none; color: var(--muted); font-size: 11px; font-weight: 500; }
 .dock a.active { background: #edf0e3; color: var(--olive); font-weight: 650; }
 .information-list p { color: var(--muted); font-size: 15px; }
@@ -205,7 +206,7 @@ p { line-height: 1.65; margin: 0; }
 .account-login-intro { max-width: 32ch; color: var(--muted); margin-top: 12px; }
 .account-code::placeholder { color: #797c6e; opacity: 1; }
 @media (max-width: 360px) {
- .app-shell { padding-inline: 18px; }
+ .app-shell > main { padding-inline: 18px; }
  .page-heading, .account-heading { gap: 10px; }
  .page-heading .festival-flower, .account-heading .festival-flower { width: 28px; height: 28px; }
  .information-list { padding-inline: 12px; }
