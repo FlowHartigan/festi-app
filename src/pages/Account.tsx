@@ -122,13 +122,17 @@ export function Account() {
         <div className="account-login-welcome"><KeyRound size={44} aria-hidden="true" className="account-key" /><div>
         <h2>Bienvenue à la fête</h2>
         <p className="account-login-intro">Entre ton code personnel pour répondre à ton invitation.</p></div></div>
+        <div id="code-help" className="account-code-help">
+          <h3>Où trouver ton code ?</h3>
+          <p>Ton code à 4 chiffres se trouve sur la <strong>face B du vinyle</strong> de ton invitation.</p>
+          <p>Plusieurs codes à 4 chiffres sur la même invitation ? <strong>Un code par personne.</strong></p>
+        </div>
         <label htmlFor="access-code">Ton code à 4 chiffres</label>
         <input id="access-code" className="account-code" placeholder="– – – –" type="password" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{4}" maxLength={4} minLength={4} required value={code} disabled={busy}
           aria-describedby={error ? 'code-help account-error' : 'code-help'} aria-invalid={!!error}
           onChange={event => { setCode(event.target.value.replace(/[^0-9]/g, '').slice(0, 4)); setError(''); }} />
         {error && <p id="account-error" role="alert" className="account-error">{error}</p>}
         <button className="account-primary" disabled={busy}>{busy ? 'Connexion…' : 'Accéder à mon compte'}</button>
-        <p id="code-help" className="account-hint">Le code figure sur ton invitation.</p>
       </form>
     </> : <>
       {!section ? <>

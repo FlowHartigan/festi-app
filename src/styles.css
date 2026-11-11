@@ -264,8 +264,10 @@ p { line-height: 1.65; margin: 0; }
 .account-login-welcome h2 { font-size: 22px; }
 .account-login-intro { margin-top: 10px; line-height: 1.6; }
 .account-login { padding-top: 38px; }
-.account-login label { margin-top: 46px; }
-.account-login > .account-hint { margin-top: 24px; text-align: center; }
+.account-login label { margin-top: 22px; }
+.account-code-help { margin-top: 24px; padding: 14px 16px; border: 1px solid #ddc58f; border-left: 4px solid var(--gold); border-radius: 12px; background: #f9edcf; color: var(--olive); }
+.account-code-help h3 { margin: 0 0 6px; font-size: 17px; }
+.account-code-help p + p { margin-top: 6px; }
 .account-primary { min-height: 58px; font-size: 17px; }
 .lineup-page { --hour-column: 88px; }
 .schedule-end { display: inline; margin-left: 4px; font-size: inherit; }
