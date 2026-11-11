@@ -1,6 +1,8 @@
 import { useFestival } from '../components/Layout';
 import { ChevronDown } from 'lucide-react';
 import { isDanceTime, ProgramMomentDetails, ProgramMomentTitle } from '../components/ProgramMoment';
+import { HeadingArtwork } from '../components/HeadingArtwork';
+import { FestivalFlower } from '../components/FestivalFlower';
 
 // Ordre des illustrations dans la planche de cinq colonnes.
 const illustratedMoments = [
@@ -12,12 +14,9 @@ const illustratedMoments = [
 export function Lineup() {
   const { program } = useFestival();
   return <section className="page lineup-page">
-    <header className="lineup-heading">
-      <div className="lineup-heading-art">
-        <img src="/assets/identity/lineup-header.webp" width="2172" height="724" alt="" fetchPriority="high" />
-      </div>
-      <h1 className="sr-only">Line-up — Once Upon a Fest</h1>
-      <p className="sr-only">Florian et Charline</p>
+    <header className="page-heading">
+      <h1><HeadingArtwork kind="lineup" label="Line-up" /></h1>
+      <FestivalFlower />
     </header>
     {program.length > 0 ? <>
       <ol className="festival-schedule">{program.map(moment => {
