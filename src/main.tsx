@@ -11,7 +11,9 @@ import { ErrorPage } from './pages/Error';
 import { Account } from './pages/Account';
 import './styles.css';
 
-const router = createBrowserRouter([{
+const router = createBrowserRouter([
+  { path: '/organisateur', lazy: async () => ({ Component: (await import('./pages/Organizer')).Organizer }) },
+  {
   path: '/', element: <Layout />, loader: loadFestival, errorElement: <ErrorPage />,
   hydrateFallbackElement: <main className="page" role="status">Chargement du festival…</main>,
   children: [

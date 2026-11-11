@@ -3,12 +3,14 @@ import type { DatabaseSync } from 'node:sqlite';
 import { readFestival } from './database.js';
 import { accountRoutes, type AccountOptions } from './account-routes.js';
 import { accountSecret } from './account-config.js';
+import { organizerRoutes } from './organizer.js';
 
-export function createApp(db: DatabaseSync, options: AccountOptions = { secret: accountSecret(), secureCookies: process.env.NODE_ENV === 'production' }) {
+export function createApp(db: DatabaseSync, options: AccountOptions = { secret: accountSecret(), secureCookies: process.env.NODE_ENV === 'production' }, organizerKey = process.env.ORGANIZER_KEY) {
   const app = express();
   app.disable('x-powered-by');
   if (process.env.TRUST_PROXY === 'loopback') app.set('trust proxy', 'loopback');
   app.use('/api/account', accountRoutes(db, options));
+  app.use('/api/organizer/responses', organizerRoutes(db, organizerKey, options.now));
   app.get('/api/health', (_req, res) => {
     db.prepare('SELECT 1').get();
     res.json({ status: 'ok' });

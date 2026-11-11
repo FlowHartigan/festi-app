@@ -3,7 +3,7 @@ import { Router, json } from 'express';
 import type { Request } from 'express';
 import type { DatabaseSync } from 'node:sqlite';
 import { loginSchema, presenceSchema, responseSchema, vanSchema } from '../shared/account.js';
-import { privateHash, readAccount } from './account-database.js';
+import { privateHash, readAccount, updatePresence } from './account-database.js';
 
 export interface AccountOptions { secret: string; secureCookies?: boolean; now?: () => number; }
 const cookieName = 'festi_account';
@@ -73,10 +73,7 @@ export function accountRoutes(db: DatabaseSync, options: AccountOptions) {
   router.put('/presence', (req, res) => {
     const parsed = presenceSchema.safeParse(req.body);
     if (!parsed.success) { res.status(400).json({ error: 'Choisissez votre réponse pour la présence.' }); return; }
-    const attending = Number(parsed.data.attending);
-    db.prepare(`UPDATE guests SET van = CASE WHEN ? = 0 THEN 0 WHEN attending = 0 THEN NULL ELSE van END,
-      attending = ?, updated_at = ? WHERE id = ?`)
-      .run(attending, attending, new Date(now()).toISOString(), res.locals.guestId);
+    updatePresence(db, res.locals.guestId, parsed.data.attending, now());
     res.json(readAccount(db, res.locals.guestId));
   });
   router.put('/van', (req, res) => {
