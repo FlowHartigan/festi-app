@@ -15,7 +15,7 @@ h2 { font-size: 19px; line-height: 1.3; font-weight: 600; margin: 0 0 8px; }
 p { line-height: 1.65; margin: 0; }
 .page { padding-block: 48px 24px; }
 .intro { color: var(--muted); max-width: 44ch; margin-bottom: 32px; }
-.home-page { display: flex; align-items: center; flex-direction: column; padding-top: 8px; text-align: center; }
+.home-page { container-type: inline-size; display: flex; align-items: center; flex-direction: column; padding-top: 8px; text-align: center; }
 
 
 
@@ -233,18 +233,22 @@ p { line-height: 1.65; margin: 0; }
 .heading-map { width: 190px; }
 .page-heading h1 { flex: 0 1 auto; }
 .page-heading { justify-content: space-between; }
-.home-wordmark { width: min(100%, 380px, max(120px, calc((100svh - 460px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) * 1.083))); margin: 0 0 20px; overflow: clip; }
-/* The visible lettering is 14.5px right of center in the 1305px source. */
-.home-wordmark img { display: block; width: 100%; height: auto; transform: translateX(-1.111111%); }
-.home-couple { text-transform: uppercase; font-size: 21px; letter-spacing: 1.2px; }
+.home-wordmark { width: calc(100% + 48px); max-width: none; margin: 0 0 20px; overflow: clip; }
+.home-wordmark img { display: block; width: 100%; height: auto; }
+@media (max-width: 360px) {
+ .home-wordmark { width: calc(100% + 36px); }
+}
+.home-couple { text-transform: uppercase; font-size: 6.14cqw; letter-spacing: .35cqw; }
 .home-venue span { display: block; }
-.home-venue { margin-top: 24px; font-size: 16px; }
+.home-venue { margin-top: 7cqw; font-size: 4.68cqw; }
 .home-info-link { display: flex; align-items: center; gap: 10px; min-height: 48px; width: min(100%, 230px); margin-top: 22px; padding: 0 15px; border-radius: 15px; background: var(--olive); color: var(--cream); font-size: 15px; font-weight: 600; text-decoration: none; text-align: left; }
 .home-info-link svg { flex-shrink: 0; }
 .home-info-link svg:last-child { margin-left: auto; }
-.home-divider { margin-block: 25px 22px; }
-.home-date { font-size: 22px; }
-.home-date span { font-size: 18px; }
+.home-divider { margin-block: 7.3cqw 6.4cqw; gap: 4.68cqw; }
+.home-divider::before, .home-divider::after { width: 15.8cqw; }
+.home-divider svg { width: 5.56cqw; height: 5.56cqw; }
+.home-date { font-size: 6.43cqw; }
+.home-date span { font-size: 5.26cqw; }
 .dock { border-radius: 30px; padding: 6px; }
 .dock a.active { background: transparent; font-weight: 500; }
 .dock a.active .lucide-house, .dock a.active .lucide-map-pin { fill: currentColor; }
@@ -284,7 +288,6 @@ p { line-height: 1.65; margin: 0; }
 .map-places summary::after { content: '›'; font-size: 25px; }
 .map-places[open] summary::after { content: '⌄'; }
 @media (max-width: 360px) {
- .home-couple { font-size: 18px; }
  .map-explorer { margin-inline: -18px; }
  .lineup-page { --hour-column: 78px; }
 }
